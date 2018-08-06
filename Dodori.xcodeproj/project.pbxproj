@@ -1,0 +1,530 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0012B35120FF882600BD2A36 /* XtestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012B35020FF882600BD2A36 /* XtestViewController.swift */; };
+		00346B3C20FA1EAF00888379 /* Test1Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00346B3B20FA1EAF00888379 /* Test1Data.swift */; };
+		003E2912210DF39400E14256 /* TestRecoginition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003E2911210DF39400E14256 /* TestRecoginition.swift */; };
+		003E2914210DF7C600E14256 /* heart_animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 003E2913210DF7C500E14256 /* heart_animation.json */; };
+		0089ABCF211724ED00BD58AD /* LevelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0089ABCE211724ED00BD58AD /* LevelData.swift */; };
+		00A7D92820FA6594001FE48A /* Test2Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A7D92720FA6594001FE48A /* Test2Data.swift */; };
+		00AB05FD210CCBB6003DA58D /* StoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AB05FC210CCBB6003DA58D /* StoryData.swift */; };
+		00AB06F0210CCD8F003DA58D /* QuizData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AB06EF210CCD8F003DA58D /* QuizData.swift */; };
+		00AB06F2210CE077003DA58D /* ViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AB06F1210CE077003DA58D /* ViewData.swift */; };
+		00AB06F4210CE293003DA58D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AB06F3210CE293003DA58D /* MainViewController.swift */; };
+		00AB06F6210CE2B5003DA58D /* LevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AB06F5210CE2B5003DA58D /* LevelViewController.swift */; };
+		00AB06F8210CF6D3003DA58D /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AB06F7210CF6D3003DA58D /* IntroViewController.swift */; };
+		00DAF7D8210DAA3F00573CCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00DAF7D7210DAA3E00573CCB /* Assets.xcassets */; };
+		00DAF7DA210DB0CB00573CCB /* TestAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DAF7D9210DB0CB00573CCB /* TestAudioViewController.swift */; };
+		4D37FD4750CA116942B7202A /* Pods_Dodori.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3115EF3BA9DE1381D621E114 /* Pods_Dodori.framework */; };
+		CD844CC420A1544300CB0202 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD844CC320A1544300CB0202 /* AppDelegate.swift */; };
+		CD844CC920A1544300CB0202 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD844CC720A1544300CB0202 /* Main.storyboard */; };
+		CD844CCE20A1544300CB0202 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD844CCC20A1544300CB0202 /* LaunchScreen.storyboard */; };
+		CDA34E0020BD9A7E007240DF /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA34DFE20BD9A7E007240DF /* Languages.swift */; };
+		CDA34E0120BD9A7E007240DF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDA34DFF20BD9A7E007240DF /* Info.plist */; };
+		CDE485D020B72D7A003280F2 /* NaverSpeech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE485CF20B72AD5003280F2 /* NaverSpeech.framework */; };
+		CDE485D120B72D7A003280F2 /* NaverSpeech.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CDE485CF20B72AD5003280F2 /* NaverSpeech.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CDF3621C20C9B4F40064CE94 /* Test2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF3621B20C9B4F40064CE94 /* Test2ViewController.swift */; };
+		CDF362EE20D02FEE0064CE94 /* NanumSquareRoundB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDF362EC20D02FEE0064CE94 /* NanumSquareRoundB.ttf */; };
+		CDF362EF20D02FEE0064CE94 /* NanumSquareRoundEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDF362ED20D02FEE0064CE94 /* NanumSquareRoundEB.ttf */; };
+		CDF3638B20D11F7E0064CE94 /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF3638A20D11F7E0064CE94 /* StoryViewController.swift */; };
+		CDF3638D20D11FAD0064CE94 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF3638C20D11FAD0064CE94 /* QuizViewController.swift */; };
+		CDF5B02820AB5D92005282B3 /* Test1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5B02720AB5D92005282B3 /* Test1ViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CDE485D220B72D7A003280F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CDE485D120B72D7A003280F2 /* NaverSpeech.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0012B35020FF882600BD2A36 /* XtestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XtestViewController.swift; sourceTree = "<group>"; };
+		00346B3B20FA1EAF00888379 /* Test1Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test1Data.swift; sourceTree = "<group>"; };
+		003E2911210DF39400E14256 /* TestRecoginition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRecoginition.swift; sourceTree = "<group>"; };
+		003E2913210DF7C500E14256 /* heart_animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = heart_animation.json; path = Assets.xcassets/image/extra/heart_animation.dataset/heart_animation.json; sourceTree = "<group>"; };
+		0089ABCE211724ED00BD58AD /* LevelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelData.swift; sourceTree = "<group>"; };
+		00A7D92720FA6594001FE48A /* Test2Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2Data.swift; sourceTree = "<group>"; };
+		00AB05FC210CCBB6003DA58D /* StoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryData.swift; sourceTree = "<group>"; };
+		00AB06EF210CCD8F003DA58D /* QuizData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizData.swift; sourceTree = "<group>"; };
+		00AB06F1210CE077003DA58D /* ViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewData.swift; sourceTree = "<group>"; };
+		00AB06F3210CE293003DA58D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		00AB06F5210CE2B5003DA58D /* LevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelViewController.swift; sourceTree = "<group>"; };
+		00AB06F7210CF6D3003DA58D /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		00DAF7D7210DAA3E00573CCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Dodori/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		00DAF7D9210DB0CB00573CCB /* TestAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAudioViewController.swift; sourceTree = "<group>"; };
+		3115EF3BA9DE1381D621E114 /* Pods_Dodori.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dodori.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		847378B6EFA77B5FDE85E872 /* Pods-Dodori.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dodori.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dodori/Pods-Dodori.debug.xcconfig"; sourceTree = "<group>"; };
+		CD844CC020A1544300CB0202 /* Dodori.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dodori.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD844CC320A1544300CB0202 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CD844CC820A1544300CB0202 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CD844CCD20A1544300CB0202 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CD844CCF20A1544300CB0202 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDA34DFD20BD9A7E007240DF /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		CDA34DFE20BD9A7E007240DF /* Languages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
+		CDA34DFF20BD9A7E007240DF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDE485CF20B72AD5003280F2 /* NaverSpeech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NaverSpeech.framework; path = framework/NaverSpeech.framework; sourceTree = "<group>"; };
+		CDF3621B20C9B4F40064CE94 /* Test2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2ViewController.swift; sourceTree = "<group>"; };
+		CDF362EC20D02FEE0064CE94 /* NanumSquareRoundB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRoundB.ttf; sourceTree = "<group>"; };
+		CDF362ED20D02FEE0064CE94 /* NanumSquareRoundEB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRoundEB.ttf; sourceTree = "<group>"; };
+		CDF3638A20D11F7E0064CE94 /* StoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
+		CDF3638C20D11FAD0064CE94 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		CDF5B02720AB5D92005282B3 /* Test1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test1ViewController.swift; sourceTree = "<group>"; };
+		EFFD3B60584675C3DE7579AF /* Pods-Dodori.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dodori.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dodori/Pods-Dodori.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CD844CBD20A1544300CB0202 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDE485D020B72D7A003280F2 /* NaverSpeech.framework in Frameworks */,
+				4D37FD4750CA116942B7202A /* Pods_Dodori.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		35CDBECADF23235FF547E9A0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3115EF3BA9DE1381D621E114 /* Pods_Dodori.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43B2CF7902B1039588A3E248 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				847378B6EFA77B5FDE85E872 /* Pods-Dodori.debug.xcconfig */,
+				EFFD3B60584675C3DE7579AF /* Pods-Dodori.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CD844CB720A1544300CB0202 = {
+			isa = PBXGroup;
+			children = (
+				CD844CC220A1544300CB0202 /* Dodori */,
+				CDA34DFC20BD9A7E007240DF /* Common */,
+				CD844CC120A1544300CB0202 /* Products */,
+				CDE485CF20B72AD5003280F2 /* NaverSpeech.framework */,
+				43B2CF7902B1039588A3E248 /* Pods */,
+				35CDBECADF23235FF547E9A0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CD844CC120A1544300CB0202 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD844CC020A1544300CB0202 /* Dodori.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CD844CC220A1544300CB0202 /* Dodori */ = {
+			isa = PBXGroup;
+			children = (
+				CDF362EB20D02FEE0064CE94 /* fonts */,
+				CD844CC320A1544300CB0202 /* AppDelegate.swift */,
+				003E2913210DF7C500E14256 /* heart_animation.json */,
+				00DAF7D7210DAA3E00573CCB /* Assets.xcassets */,
+				CD844CC720A1544300CB0202 /* Main.storyboard */,
+				00AB06F3210CE293003DA58D /* MainViewController.swift */,
+				00AB06F5210CE2B5003DA58D /* LevelViewController.swift */,
+				0089ABCE211724ED00BD58AD /* LevelData.swift */,
+				00AB06F7210CF6D3003DA58D /* IntroViewController.swift */,
+				00AB06F1210CE077003DA58D /* ViewData.swift */,
+				0012B35020FF882600BD2A36 /* XtestViewController.swift */,
+				CDF5B02720AB5D92005282B3 /* Test1ViewController.swift */,
+				00346B3B20FA1EAF00888379 /* Test1Data.swift */,
+				003E2911210DF39400E14256 /* TestRecoginition.swift */,
+				00DAF7D9210DB0CB00573CCB /* TestAudioViewController.swift */,
+				CDF3621B20C9B4F40064CE94 /* Test2ViewController.swift */,
+				00A7D92720FA6594001FE48A /* Test2Data.swift */,
+				CDF3638A20D11F7E0064CE94 /* StoryViewController.swift */,
+				00AB05FC210CCBB6003DA58D /* StoryData.swift */,
+				CDF3638C20D11FAD0064CE94 /* QuizViewController.swift */,
+				00AB06EF210CCD8F003DA58D /* QuizData.swift */,
+				CD844CCC20A1544300CB0202 /* LaunchScreen.storyboard */,
+				CD844CCF20A1544300CB0202 /* Info.plist */,
+			);
+			path = Dodori;
+			sourceTree = "<group>";
+		};
+		CDA34DFC20BD9A7E007240DF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CDA34DFD20BD9A7E007240DF /* Common.h */,
+				CDA34DFE20BD9A7E007240DF /* Languages.swift */,
+				CDA34DFF20BD9A7E007240DF /* Info.plist */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CDF362EB20D02FEE0064CE94 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CDF362EC20D02FEE0064CE94 /* NanumSquareRoundB.ttf */,
+				CDF362ED20D02FEE0064CE94 /* NanumSquareRoundEB.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CD844CBF20A1544300CB0202 /* Dodori */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD844CD220A1544300CB0202 /* Build configuration list for PBXNativeTarget "Dodori" */;
+			buildPhases = (
+				04C72F8D91EC78DF447E25FB /* [CP] Check Pods Manifest.lock */,
+				CD844CBC20A1544300CB0202 /* Sources */,
+				CD844CBD20A1544300CB0202 /* Frameworks */,
+				CD844CBE20A1544300CB0202 /* Resources */,
+				CDE485D220B72D7A003280F2 /* Embed Frameworks */,
+				C5D4C0E81D86882D1E88279B /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Dodori;
+			productName = Dodori;
+			productReference = CD844CC020A1544300CB0202 /* Dodori.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CD844CB820A1544300CB0202 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = SWUCOMPUTER;
+				TargetAttributes = {
+					CD844CBF20A1544300CB0202 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = CD844CBB20A1544300CB0202 /* Build configuration list for PBXProject "Dodori" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CD844CB720A1544300CB0202;
+			productRefGroup = CD844CC120A1544300CB0202 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CD844CBF20A1544300CB0202 /* Dodori */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CD844CBE20A1544300CB0202 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDA34E0120BD9A7E007240DF /* Info.plist in Resources */,
+				CD844CCE20A1544300CB0202 /* LaunchScreen.storyboard in Resources */,
+				CD844CC920A1544300CB0202 /* Main.storyboard in Resources */,
+				CDF362EF20D02FEE0064CE94 /* NanumSquareRoundEB.ttf in Resources */,
+				00DAF7D8210DAA3F00573CCB /* Assets.xcassets in Resources */,
+				CDF362EE20D02FEE0064CE94 /* NanumSquareRoundB.ttf in Resources */,
+				003E2914210DF7C600E14256 /* heart_animation.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04C72F8D91EC78DF447E25FB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Dodori-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5D4C0E81D86882D1E88279B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dodori/Pods-Dodori-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dodori/Pods-Dodori-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CD844CBC20A1544300CB0202 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00AB06F8210CF6D3003DA58D /* IntroViewController.swift in Sources */,
+				00AB06F2210CE077003DA58D /* ViewData.swift in Sources */,
+				CDF3638B20D11F7E0064CE94 /* StoryViewController.swift in Sources */,
+				00A7D92820FA6594001FE48A /* Test2Data.swift in Sources */,
+				00AB06F6210CE2B5003DA58D /* LevelViewController.swift in Sources */,
+				CDF3638D20D11FAD0064CE94 /* QuizViewController.swift in Sources */,
+				CDF3621C20C9B4F40064CE94 /* Test2ViewController.swift in Sources */,
+				CDA34E0020BD9A7E007240DF /* Languages.swift in Sources */,
+				00AB06F4210CE293003DA58D /* MainViewController.swift in Sources */,
+				00DAF7DA210DB0CB00573CCB /* TestAudioViewController.swift in Sources */,
+				0012B35120FF882600BD2A36 /* XtestViewController.swift in Sources */,
+				00AB05FD210CCBB6003DA58D /* StoryData.swift in Sources */,
+				0089ABCF211724ED00BD58AD /* LevelData.swift in Sources */,
+				CDF5B02820AB5D92005282B3 /* Test1ViewController.swift in Sources */,
+				CD844CC420A1544300CB0202 /* AppDelegate.swift in Sources */,
+				00AB06F0210CCD8F003DA58D /* QuizData.swift in Sources */,
+				003E2912210DF39400E14256 /* TestRecoginition.swift in Sources */,
+				00346B3C20FA1EAF00888379 /* Test1Data.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CD844CC720A1544300CB0202 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD844CC820A1544300CB0202 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CD844CCC20A1544300CB0202 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD844CCD20A1544300CB0202 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CD844CD020A1544300CB0202 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: je4297@icloud.com (67T442A3CJ)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		CD844CD120A1544300CB0202 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: je4297@icloud.com (67T442A3CJ)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CD844CD320A1544300CB0202 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 847378B6EFA77B5FDE85E872 /* Pods-Dodori.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R78643UTJ5;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/framework",
+				);
+				INFOPLIST_FILE = Dodori/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.swu.cd.Dodori;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CD844CD420A1544300CB0202 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFFD3B60584675C3DE7579AF /* Pods-Dodori.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R78643UTJ5;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/framework",
+				);
+				INFOPLIST_FILE = Dodori/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.swu.cd.Dodori;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CD844CBB20A1544300CB0202 /* Build configuration list for PBXProject "Dodori" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD844CD020A1544300CB0202 /* Debug */,
+				CD844CD120A1544300CB0202 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD844CD220A1544300CB0202 /* Build configuration list for PBXNativeTarget "Dodori" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD844CD320A1544300CB0202 /* Debug */,
+				CD844CD420A1544300CB0202 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CD844CB820A1544300CB0202 /* Project object */;
+}
