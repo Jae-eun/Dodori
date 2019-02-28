@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="SentenceReview" representedClassName="SentenceReview" syncable="YES" codeGenerationType="class">
+        <attribute name="sentence" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="storyLevel" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="WordReview" representedClassName="WordReview" syncable="YES" codeGenerationType="class">
+        <attribute name="level" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="story" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="word" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="WordReview" positionX="-18" positionY="27" width="128" height="90"/>
+        <element name="SentenceReview" positionX="-36" positionY="18" width="128" height="75"/>
+    </elements>
 </model>

@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+class SettingData: NSObject {
+    static let shared: SettingData = SettingData()
+    
+    var bgmSoundVolume: Float = 0.4
+    var effectSoundVolume: Float = 1
+    var mainBgmSoundVolume: Float = 1
+}

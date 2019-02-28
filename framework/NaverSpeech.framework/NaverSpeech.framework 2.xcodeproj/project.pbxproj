@@ -1,0 +1,167 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXFileReference section */
+		00827940218A942D00324097 /* state_diagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = state_diagram.png; sourceTree = "<group>"; };
+		00827941218A942D00324097 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		00827942218A942D00324097 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		00827943218A942D00324097 /* Headers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Headers; sourceTree = "<group>"; };
+		00827944218A942D00324097 /* NaverSpeech.framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = NaverSpeech.framework.xcodeproj; sourceTree = "<group>"; };
+		00827947218A942D00324097 /* NaverSpeech */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = NaverSpeech; sourceTree = "<group>"; };
+		00827948218A942D00324097 /* libnsclient.la */ = {isa = PBXFileReference; lastKnownFileType = text; path = libnsclient.la; sourceTree = "<group>"; };
+		00827949218A942D00324097 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Modules; sourceTree = "<group>"; };
+		0082794A218A942D00324097 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		0082794B218A942D00324097 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0082793A218A942D00324097 = {
+			isa = PBXGroup;
+			children = (
+				00827940218A942D00324097 /* state_diagram.png */,
+				00827941218A942D00324097 /* Makefile.am */,
+				00827942218A942D00324097 /* .gitignore */,
+				00827943218A942D00324097 /* Headers */,
+				00827944218A942D00324097 /* NaverSpeech.framework.xcodeproj */,
+				00827947218A942D00324097 /* NaverSpeech */,
+				00827948218A942D00324097 /* libnsclient.la */,
+				00827949218A942D00324097 /* Modules */,
+				0082794A218A942D00324097 /* Makefile.in */,
+				0082794B218A942D00324097 /* Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		00827945218A942D00324097 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		0082793F218A942D00324097 /* NaverSpeech.framework */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 0082794D218A942D00324097 /* Build configuration list for PBXLegacyTarget "NaverSpeech.framework" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "/Users/ijaeeun/Documents/Dodori-master/Dodori h/framework/NaverSpeech.framework";
+			dependencies = (
+			);
+			name = NaverSpeech.framework;
+			passBuildSettingsInEnvironment = 1;
+			productName = NaverSpeech.framework;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		0082793B218A942D00324097 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = 0082793E218A942D00324097 /* Build configuration list for PBXProject "NaverSpeech.framework 2" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0082793A218A942D00324097;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 00827945218A942D00324097 /* Products */;
+					ProjectRef = 00827944218A942D00324097 /* NaverSpeech.framework.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				0082793F218A942D00324097 /* NaverSpeech.framework */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		0082793C218A942D00324097 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		0082793D218A942D00324097 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		0082794E218A942D00324097 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = NaverSpeech.framework;
+			};
+			name = Debug;
+		};
+		0082794F218A942D00324097 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = NaverSpeech.framework;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0082793E218A942D00324097 /* Build configuration list for PBXProject "NaverSpeech.framework 2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0082793C218A942D00324097 /* Debug */,
+				0082793D218A942D00324097 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0082794D218A942D00324097 /* Build configuration list for PBXLegacyTarget "NaverSpeech.framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0082794E218A942D00324097 /* Debug */,
+				0082794F218A942D00324097 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0082793B218A942D00324097 /* Project object */;
+}

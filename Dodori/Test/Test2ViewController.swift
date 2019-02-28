@@ -28,9 +28,12 @@ import AVFoundation
 import Lottie
 import UIKit
 
+
 class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
     // MARK:- Properties
-    var audioPlayer: AVAudioPlayer!
+    var audioPlayer: AVAudioPlayer?
+    var audioPlayer2: AVAudioPlayer?
+    var audioPlayer3: AVAudioPlayer?
     
     // MARK: IBOutlets
     @IBOutlet var playPauseButton: UIButton!
@@ -39,78 +42,37 @@ class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var step2Sentence: UILabel!
     @IBOutlet weak var step2Pronun: UILabel!
     @IBOutlet weak var pageNum: UIImageView!
-  
+    @IBOutlet weak var dodoriSpeakingImageView: UIImageView!
+    
     @IBOutlet weak var heart: UIImageView!
     @IBOutlet weak var heart2: UIImageView!
     @IBOutlet weak var heart3: UIImageView!
+    @IBOutlet weak var grayHeart: UIImageView!
+    @IBOutlet weak var grayHeart2: UIImageView!
+    @IBOutlet weak var grayHeart3: UIImageView!
 
-    
     
     var pageNumber: Int = 0
     var testData: String = ""
+    public var animationView = LOTAnimationView()
+    public var animationView1 = LOTAnimationView()
+    public var animationView2 = LOTAnimationView()
     var soundName: String = ""
-    let DataView = ViewData()
+    var effectSoundName: String = ""
+    var bubbleSoundName: String = ""
     var step2FileName: String = ""
-    
+    var isSolve: Bool = false
+    var isCorrect: Bool = false
+
     // 메인화면으로 이동
     @IBAction func goHome(_ sender: Any) {
         pressedBtn()
-        self.navigationController?.popToRootViewController(animated: false)
+        self.testDataDefault()
         ViewData.shared.selectedReview = nil
+        self.navigationController?.popToRootViewController(animated: false)
     }
     
-
     
-    @IBAction func nextPage() {
-        pageNumber += 1;
-        self.audioPlayer?.pause()
-        if pageNumber == 10 {
-            // 화면 전환할 뷰 컨트롤러를 Storyboard ID 정보를 이용, 읽어와서 객체로 생성함
-            if let view = self.storyboard?.instantiateViewController(withIdentifier: "QuizView") {
-                // 화면을 전환함
-                self.navigationController?.pushViewController(view, animated: false)
-            }
-        }
-        else {
-            self.sendData()
-        }
-    }
-
-    public func heartAnimation () {
-        let animationView = LOTAnimationView(name: "heart_anim")
-
-        if Test2Data.shared.opportunity == 3 {
-            animationView.frame = CGRect(x: 770, y: 154, width: 50, height: 45)
-            self.view.addSubview(animationView)
-            animationView.play()
-            heart.isHidden = true
-        }
-        else if Test2Data.shared.opportunity == 2 {
-            animationView.frame = CGRect(x: 822, y: 154, width: 50, height: 45)
-            self.view.addSubview(animationView)
-            animationView.play()
-            heart2.isHidden = true
-        }
-        else if Test2Data.shared.opportunity == 1 {
-            animationView.frame = CGRect(x: 872, y: 154, width: 50, height: 45)
-            self.view.addSubview(animationView)
-            animationView.play()
-            heart3.isHidden = true
-//        YaguReviewData.shared.reviewSentence.append(pageNumber)
-        }
-    }
-    
-    func testDataDefault() {
-        heart.isHidden = false
-        heart2.isHidden = false
-        heart3.isHidden = false
-
-
-        Test2Data.shared.opportunity = 3
-        recognitionResultLabel.text = nil
-    }
-    
-
     func receiveData() {
         if ViewData.shared.selectedStory == "tino" {
             if ViewData.shared.selectedLevel == "easy" {
@@ -138,11 +100,29 @@ class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    
+    func testDataDefault() {
+        heart.isHidden = false
+        heart2.isHidden = false
+        heart3.isHidden = false
+        grayHeart.isHidden = true
+        grayHeart2.isHidden = true
+        grayHeart3.isHidden = true
+        
+        dodoriSpeakingImageView.isHidden = false
+//        dodoriSpeakingImageView.image = UIImage(named: "training_stage2_tell1")
+        
+        Test2Data.shared.opportunity = 3
+        recognitionResultLabel.text = nil
+        
+        isSolve = false
+    }
+    
+    
     func sendData() {
         let pageNumImg: String = Test2Data.shared.pageNum[pageNumber]
         pageNum.image = UIImage(named: pageNumImg)
-        self.testDataDefault()
-
+        
         if testData == "tinoEasy" {
             step2FileName = Test2Data.shared.tinoEasyFileName[pageNumber]
             step2Image.image = UIImage(named: step2FileName)
@@ -155,7 +135,7 @@ class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
             step2Sentence.text = Test2Data.shared.tinoHardTextArray[pageNumber]
             step2Pronun.text = Test2Data.shared.tinoHardPronunArray[pageNumber]
         }
-         if testData == "yaguEasy" {
+        if testData == "yaguEasy" {
             step2FileName = Test2Data.shared.yaguEasyFileName[pageNumber]
             step2Image.image = UIImage(named: step2FileName)
             step2Sentence.text = Test2Data.shared.yaguEasyTextArray[pageNumber]
@@ -181,46 +161,129 @@ class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    func setIntroPopUp() {
-        let popUpView = IntroPopUp.instanceFromNib()
-        popUpView.frame = self.view.frame
-        self.view.addSubview(popUpView)
+
+    public func heartAnimation () {
+        let animationView = LOTAnimationView(name: "heart_anim")
+        self.removeHeart()
+
+        if Test2Data.shared.opportunity == 2 {
+            animationView.frame = CGRect(x: 745, y: 165, width: 55, height: 50)
+            self.view.addSubview(animationView)
+            animationView.play(completion: {(true) in
+                self.grayHeart.isHidden = false;
+                self.bubbleLottie() })
+            heart.isHidden = true
+        }
+        else if Test2Data.shared.opportunity == 1 {
+            animationView.frame = CGRect(x: 806, y: 165, width: 55, height: 50)
+            self.view.addSubview(animationView)
+            animationView.play(completion: {(true) in
+                self.grayHeart2.isHidden = false;
+                self.bubbleLottie2() })
+            heart2.isHidden = true
+        }
+        else if Test2Data.shared.opportunity == 0 {
+            Test2Data.shared.reviewPageNum.append(pageNumber)
+            animationView.frame = CGRect(x: 867, y: 165, width: 55, height: 50)
+            self.view.addSubview(animationView)
+            animationView.play(completion: {(true) in
+                self.grayHeart3.isHidden = false;
+                self.incorrectPopUp() })
+            heart3.isHidden = true
+        }
+    }
+
+    public func addReviewPageNum() {
+        if testData == "tinoEasy" {
+            ReviewData.shared.tinoEasySentenceReview = Test2Data.shared.reviewPageNum
+        }
+        else if testData == "tinoHard" {
+            ReviewData.shared.tinoHardSentenceReview = Test2Data.shared.reviewPageNum
+        }
+        else if testData == "yaguEasy" {
+            ReviewData.shared.yaguEasySentenceReview = Test2Data.shared.reviewPageNum
+        }
+        else if testData == "yaguHard" {
+            ReviewData.shared.yaguHardSentenceReview = Test2Data.shared.reviewPageNum
+        }
+        else if testData == "paulEasy" {
+            ReviewData.shared.paulEasySentenceReview = Test2Data.shared.reviewPageNum
+        }
+        else if testData == "paulHard" {
+            ReviewData.shared.paulHardSentenceReview = Test2Data.shared.reviewPageNum
+        }
     }
     
-    
     func intro() {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
         guard let storyboardId = self.restorationIdentifier else { return }
-
+        
         guard let vc =
-            storyboard?.instantiateViewController(withIdentifier: "IntroView") as? IntroViewController else { return }
-        vc.labelText = DataView.changeLabel(storyBoardId: storyboardId)
+            storyboard.instantiateViewController(withIdentifier: "IntroView") as? IntroViewController else { return }
+        
+        vc.testIntroDelegate = self
+        vc.storyBoardId = storyboardId
+        vc.soundName = PopUpData.shared.changeIntroSound(storyBoardId: storyboardId)
+        vc.speakingImageName = ViewData.shared.changeImage(storyBoardId: storyboardId)
         vc.view.backgroundColor = UIColor(white: 0, alpha: 0.75)
         vc.modalPresentationStyle = .overCurrentContext
         
         self.present(vc, animated: false, completion: nil)
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dodoriSpeakingImageView.isHidden = true
         intro()
+        Test2Data.shared.reviewPageNum = []
 
-//        self.initializePlayer()
         audioPlayer?.prepareToPlay()
+        audioPlayer2?.prepareToPlay()
+        audioPlayer3?.prepareToPlay()
+        
         receiveData()
         sendData()
     }
     
     // MARK: - Methods
     // MARK: - Custom Method
-    func initializePlayer(soundName: String) {
+    func initializePlayer() {
         guard let soundAsset: NSDataAsset = NSDataAsset(name: soundName) else {
             print("음원 파일 에셋을 가져올 수 없습니다")
             return
         }
         do {
             try self.audioPlayer = AVAudioPlayer(data: soundAsset.data)
-            self.audioPlayer!.delegate = self
+            self.audioPlayer?.delegate = self
+        } catch let error as NSError {
+            print("플레이어 초기화 실패")
+            print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
+        }
+    }
+    
+    func effectSoundPlayer() {
+        guard let soundAsset: NSDataAsset = NSDataAsset(name: effectSoundName) else {
+            print("음원 파일 에셋을 가져올 수 없습니다")
+            return
+        }
+        do {
+            try self.audioPlayer2 = AVAudioPlayer(data: soundAsset.data)
+            self.audioPlayer2?.delegate = self
+        } catch let error as NSError {
+            print("플레이어 초기화 실패")
+            print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
+        }
+    }
+    
+    func bubbleSoundPlayer() {
+        guard let soundAsset: NSDataAsset = NSDataAsset(name: bubbleSoundName) else {
+            print("음원 파일 에셋을 가져올 수 없습니다")
+            return
+        }
+        do {
+            try self.audioPlayer3 = AVAudioPlayer(data: soundAsset.data)
+            self.audioPlayer3?.delegate = self
         } catch let error as NSError {
             print("플레이어 초기화 실패")
             print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
@@ -229,39 +292,45 @@ class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
     
     func pressedPronunciation() {
         soundName = "\(step2FileName)_sound"
-        initializePlayer(soundName: soundName)
+        initializePlayer()
     }
     
     func pressedBtn() {
         soundName = "1.app-button"
-        initializePlayer(soundName: soundName)
+        effectSoundPlayer()
         self.audioPlayer?.play()
     }
     
     func pressedRecordBtn() {
         soundName = "5.app-record_start"
-        initializePlayer(soundName: soundName)
+        effectSoundPlayer()
         self.audioPlayer?.play()
     }
     
-    func finishedRecordBtn() {
-        soundName = "5.app-record_end"
-        initializePlayer(soundName: soundName)
-        self.audioPlayer?.play()
+//    func finishedRecordBtn() {
+//        soundName = "5.app-record_end"
+//        initializePlayer()
+//        self.audioPlayer?.play()
+//    }
+    
+    func playBubbleSound() {
+        if Test2Data.shared.opportunity == 3 {
+            bubbleSoundName = "dodori_sentence"
+        } else if Test2Data.shared.opportunity == 2 {
+            bubbleSoundName = "dodori_wrong"
+        } else if Test2Data.shared.opportunity == 1 {
+            bubbleSoundName = "dodori_one_heart"
+        }
+        bubbleSoundPlayer()
+        self.audioPlayer3?.play()
     }
     
     func removeHeart() {
-        soundName = "7.app-incorrect"
-        initializePlayer(soundName: soundName)
+        soundName = "7.app-heart"
+        initializePlayer()
         self.audioPlayer?.play()
     }
-    
-    func finishTest() {
-        soundName = "8.app-correct"
-        initializePlayer(soundName: soundName)
-        self.audioPlayer?.play()
-    }
-    
+
     
     @IBAction func touchUpPlayPauseButton(_ sender: UIButton) {
         pressedPronunciation()
@@ -297,11 +366,10 @@ class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ Player: AVAudioPlayer, successfully flag: Bool) {
         self.playPauseButton.isSelected = false
+
     }
     
-    
-    
-    
+
     
     // MARK: - init
     required init?(coder aDecoder: NSCoder) {
@@ -333,9 +401,11 @@ class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
      * 인식기가 동작 중이지 않을 때 button에 대한 tap action이 들어오면 인식기에 언어 코드를 넣어서 인식기를 시작시킵니다.
      */
     @IBAction func recognitionButtonTapped(_ sender: Any) {
+        isSolve = true
         pressedRecordBtn()
         if self.speechRecognizer.isRunning {
             self.speechRecognizer.stop()
+
         } else {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
             self.speechRecognizer.start(with: .korean)
@@ -379,7 +449,6 @@ extension Test2ViewController: NSKRecognizerDelegate {
         print("Event occurred: Ready")
         self.recognitionResultLabel.textColor = blackcolor
         self.recognitionResultLabel.text = "발음해보세요"
-        // self.setRecognitionButtonTitle(withText: "Stop", color: .red)
         self.recognitionButton.isEnabled = true
     }
     
@@ -390,9 +459,11 @@ extension Test2ViewController: NSKRecognizerDelegate {
     public func recognizerDidEnterInactive(_ aRecognizer: NSKRecognizer!) {
         print("Event occurred: Inactive")
         
-        // self.setRecognitionButtonTitle(withText: "Record", color: .blue)
         self.recognitionButton.isEnabled = true
         try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.correctPronunciation()
+        }
     }
     
     public func recognizer(_ aRecognizer: NSKRecognizer!, didRecordSpeechData aSpeechData: Data!) {
@@ -400,18 +471,9 @@ extension Test2ViewController: NSKRecognizerDelegate {
         
     }
     
-    
-    
     public func recognizer(_ aRecognizer: NSKRecognizer!, didReceivePartialResult aResult: String!) {
         print("Partial result: \(aResult)")
-        if step2Sentence.text != aResult {
-            self.recognitionResultLabel.textColor = redcolor
-            self.recognitionResultLabel.text = aResult
-        }
-        else {
-            self.recognitionResultLabel.textColor = bluecolor
-            self.recognitionResultLabel.text = aResult
-        }
+        self.recognitionResultLabel.text = "목소리를 듣고 있어요"
     }
     
     public func recognizer(_ aRecognizer: NSKRecognizer!, didReceiveError aError: Error!) {
@@ -419,42 +481,164 @@ extension Test2ViewController: NSKRecognizerDelegate {
         
         // self.setRecognitionButtonTitle(withText: "Record", color: .blue)
         self.recognitionButton.isEnabled = true
-        self.recognitionResultLabel.text = "Error: " + aError.localizedDescription
+        print("Error: " + aError.localizedDescription)
+        self.recognitionResultLabel.text = "마이크 버튼을 다시 누르세요"
         
         if self.speechRecognizer.isRunning {
             self.speechRecognizer.cancel()
-            self.recognitionResultLabel.text = "Canceled"
-            // self.setRecognitionButtonTitle(withText: "Record", color: .blue)
+//            self.recognitionResultLabel.text = "Canceled"
             self.recognitionButton.isEnabled = true
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient)
         }
     }
     
+    func correctPronunciation() {
+        if isCorrect == true {
+            self.correctLottie()
+        } else {
+            self.heartAnimation()
+        }
+    }
+    
     public func recognizer(_ aRecognizer: NSKRecognizer!, didReceive aResult: NSKRecognizedResult!) {
-        print("Final result: \(aResult)")
         
-        if let result = aResult.results.first as? String {
+        
+        if var result = aResult.results.first as? String {
+            result = result.trimmingCharacters(in: ["?"])
+            print("Final result: \(aResult)")
             self.recognitionResultLabel.text = result
-            if step2Sentence.text != result {
-                heartAnimation()
+            let text = step2Sentence.text!
+            if text != result {
                 Test2Data.shared.opportunity -= 1
+                isCorrect = false
                 self.recognitionResultLabel.textColor = redcolor
-                self.recognitionResultLabel.text = result
-                removeHeart()
-            } else {
-                self.recognitionResultLabel.textColor = bluecolor
-                self.recognitionResultLabel.text = result
-                finishTest()
-                nextPage()
-            }
+                
+                var textIndex: DefaultIndices<String.CharacterView>
+                var incorrectRange: [NSRange] = []
+                
+                if result.count > text.count {
+                    textIndex = text.characters.indices
+                } else {
+                    textIndex = result.characters.indices
+                }
+                
+                for index in textIndex {
+                    if result[index] == text[index] {
+                        let range = (result as NSString).range(of: String(result[index]))
+                        incorrectRange.append(range)
+                        let attributedString = NSMutableAttributedString(string: result)
+                        
+                        for i in 0 ..< incorrectRange.count {
+                            attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: incorrectRange[i])
+                        }
+                        recognitionResultLabel.attributedText = attributedString
+                    }
+                }
+        } else {
+            self.recognitionResultLabel.textColor = bluecolor
+            self.recognitionResultLabel.text = result
+            isCorrect = true
+        }
             recognitionButton.isSelected = false
             recognitionButton.setImage(UIImage(named : "voiceBtn"), for: UIControlState.normal)
         }
     }
     
-    
     func setRecognitionButtonTitle(withText text: String, color: UIColor) {
         recognitionButton.setTitle(text, for: .normal)
         recognitionButton.setTitleColor(color, for: .normal)
+    }
+    
+    func incorrectPopUp() {
+        guard let storyboardId = self.restorationIdentifier else { return }
+        
+        guard let vc =
+            storyboard?.instantiateViewController(withIdentifier: "IncorrectPopUpView") as? IncorrectPopUpViewController else { return }
+        
+        vc.delegate = self
+        vc.storyboardID = storyboardId
+        vc.soundName = PopUpData.shared.changeIncorrectSound(storyBoardId: storyboardId)
+        vc.view.backgroundColor = UIColor(white: 0, alpha: 0.75)
+        vc.modalPresentationStyle = .overCurrentContext
+        
+        self.present(vc, animated: false, completion: nil)
+    }
+    
+    func playCorrectLottieSound() {
+        effectSoundPlayer()
+        self.audioPlayer2?.play()
+    }
+    
+    func correctLottie() {
+        let randomNo: UInt32 = arc4random_uniform(5) + 1;
+        let correctIconImageName = "correct_icon\(randomNo)"
+        animationView = LOTAnimationView(name: correctIconImageName)
+        effectSoundName = "dodori_stamp\(randomNo)"
+        animationView.frame = CGRect(x: 0, y: 0, width: 1024, height: 768)
+        self.view.addSubview(animationView)
+        self.playCorrectLottieSound()
+        animationView.play(completion: {(true) in self.nextPage()})
+    }
+    
+    func bubbleLottie() {
+        playBubbleSound()
+        dodoriSpeakingImageView.isHidden = true
+        animationView1 = LOTAnimationView(name: "bubble_stage1,2_3")
+        animationView1.frame = CGRect(x: 175, y: 50, width: 336, height: 60)
+        self.view.addSubview(animationView1)
+        animationView1.play()
+    }
+    
+    func bubbleLottie2() {
+        playBubbleSound()
+        dodoriSpeakingImageView.isHidden = true
+        animationView2 = LOTAnimationView(name: "bubble_stage1,2_2")
+        animationView2.frame = CGRect(x: 175, y: 50, width: 418, height: 60)
+        self.view.addSubview(animationView2)
+        animationView2.play()
+    }
+}
+
+extension Test2ViewController: IncorrectPopUpDelegate {
+    func playAuto() {
+        
+    }
+    
+    @IBAction func nextPage() {
+        if isSolve == true {
+            ResultData.shared.totalOpportunityScore += 3
+            ResultData.shared.solvedOpportunityScore += Test2Data.shared.opportunity
+        }
+        pageNumber += 1;
+        self.audioPlayer?.pause()
+        self.audioPlayer2?.pause()
+        self.audioPlayer3?.pause()
+        
+        if pageNumber == 10 {
+            addReviewPageNum()
+            // 화면 전환할 뷰 컨트롤러를 Storyboard ID 정보를 이용, 읽어와서 객체로 생성함
+            if let view = self.storyboard?.instantiateViewController(withIdentifier: "QuizView") {
+                // 화면을 전환함
+                self.navigationController?.pushViewController(view, animated: false)
+            }
+        }
+        else {
+
+            animationView.removeFromSuperview()
+            animationView1.removeFromSuperview()
+            animationView2.removeFromSuperview()
+            self.testDataDefault()
+            self.sendData()
+        }
+    }
+}
+
+extension Test2ViewController: TestIntroDelegate {
+    func bubbleDefaultLottie() {
+        playBubbleSound()
+        animationView = LOTAnimationView(name: "bubble_stage2")
+        animationView.frame = CGRect(x: 175, y: 50, width: 295, height: 60)
+        self.view.addSubview(animationView)
+        animationView.play()
     }
 }

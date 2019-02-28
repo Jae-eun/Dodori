@@ -8,59 +8,89 @@
 
 import UIKit
 import AVFoundation
+import Lottie
 
 class QuizViewController: UIViewController, AVAudioPlayerDelegate {
 
+
+    
+    // MARK: IBOutlets
+    @IBOutlet var replayButton: UIButton!
     @IBOutlet weak var quizImageView: UIImageView!
     @IBOutlet weak var quizLabel: UILabel!
     @IBOutlet weak var firstBtn: UIButton!
     @IBOutlet weak var secondBtn: UIButton!
-    @IBOutlet weak var ThirdBtn: UIButton!
+    @IBOutlet weak var thirdBtn: UIButton!
     @IBOutlet weak var pageNumImageView: UIImageView!
+    @IBOutlet weak var dodoriSpeakingImageView: UIImageView!
+    @IBOutlet weak var nextButton: UIButton!
     
     // MARK:- Properties
+    var quizs: [Quiz] = []
+
     var audioPlayer: AVAudioPlayer!
+    var audioPlayer2: AVAudioPlayer!
+    var playFileNumber = 0
     
-    // MARK: IBOutlets
-    @IBOutlet var replayButton: UIButton!
+    var isBigSize: Bool = false
     
-    let Data4 = QuizData()
     var pageNumber: Int = 0
     var testData: String = ""
-    let DataView = ViewData()
     var soundName: String = ""
+    var effectSoundName: String = ""
+    var selectedAnswer: Int?
+    var quizSoundName: [Example]?
     
+    var soundNameInQuiz: [String] = [""]
+    var imageNameInQuiz: String = ""
+    var textInQuiz: String = ""
+    var correctAnswerIndex: Int = 0
+    var userSelectedIndex: Int = 0
+    var opportunity: Int = 1
+    var isBubble: Bool = false
+    var isCorrect: Bool = true
+    var isSolve: Bool = false
     
-    func setIntroPopUp() {
-        let popUpView = IntroPopUp.instanceFromNib()
-        popUpView.frame = self.view.frame
-        self.view.addSubview(popUpView)
-    }
+    var timer = Timer()
+    let delay = 0.5
     
+    public var animationView = LOTAnimationView()
+    public var animationView2 = LOTAnimationView()
+    
+    var quizDictionary:[String:String] = [:]
+    var shuffledExamples:[Example] = []
+
+
     func intro() {
         guard let storyboardId = self.restorationIdentifier else { return }
         
         guard let vc =
             storyboard?.instantiateViewController(withIdentifier: "IntroView") as? IntroViewController else { return }
-        vc.labelText = DataView.changeLabel(storyBoardId: storyboardId)
+        
+        vc.testIntroDelegate = self
+        vc.storyBoardId = storyboardId
+        vc.soundName = PopUpData.shared.changeIntroSound(storyBoardId: storyboardId)
+        vc.speakingImageName = ViewData.shared.changeImage(storyBoardId: storyboardId)
         vc.view.backgroundColor = UIColor(white: 0, alpha: 0.75)
         vc.modalPresentationStyle = .overCurrentContext
         
         self.present(vc, animated: false, completion: nil)
     }
     
-    
     // MARK: - override
     override func viewDidLoad() {
         super.viewDidLoad()
         
         intro()
-        
-//        self.initializePlayer()
-//        self.player?.play()
-        
+
         receiveData()
-        sendData()
+        setQuizData()
+    }
+    
+    var audioSession: AVAudioSession?
+    
+    override func viewDidAppear(_ animated: Bool) {
+
     }
     
     @IBAction func goHome(_ sender: Any) {
@@ -95,78 +125,182 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-//    func testDataDefault() {
-//        Data1.opportunity = 5
-//        recognitionResultLabel.text = nil
-//    }
+    func defaultData() {
+        playFileNumber = 0
+        opportunity = 1
+        isBubble = false
+        isSolve = false
+        isCorrect = true
+        nextButton.isHidden = true
+        enabledExampleButton()
+    }
+    
+    func enabledExampleButton() {
+        firstBtn.isEnabled = true
+        secondBtn.isEnabled = true
+        thirdBtn.isEnabled = true
+    }
     
     func sendData() {
-        let pageNumImg: String = QuizData.shared.pageNum[pageNumber]
+
+        let pageNumImg: String = ViewData.shared.pageNum[pageNumber]
         pageNumImageView.image = UIImage(named: pageNumImg)
-        // self.testDataDefault()
+        quizDictionary.removeAll()
+
         if testData == "tinoEasy" {
-            let quizImg: String = QuizData.shared.tinoEasyQuizImageName[pageNumber]
-            quizImageView.image = UIImage(named: quizImg)
-            quizLabel.text = QuizData.shared.tinoEasyTextArray[pageNumber]
+            soundNameInQuiz = tinoEasyQuizSound[pageNumber]
+            imageNameInQuiz = tinoEasyQuizImageName[pageNumber]
+            textInQuiz = tinoEasyTextArray[pageNumber]
+            for i in 0..<tinoEasyQuizSound[pageNumber].count {
+                quizDictionary[tinoEasyQuizSound[pageNumber][i]] = tinoEasyQuizAnswer[pageNumber][i]
+            }
         }
         else if testData == "tinoHard" {
-            let quizImg: String = QuizData.shared.tinoHardQuizImageName[pageNumber]
-            quizImageView.image = UIImage(named: quizImg)
-            quizLabel.text = QuizData.shared.tinoHardTextArray[pageNumber]
+            soundNameInQuiz = tinoHardQuizSound[pageNumber]
+            imageNameInQuiz = tinoHardQuizImageName[pageNumber]
+            textInQuiz = tinoHardTextArray[pageNumber]
+            for i in 0..<tinoHardQuizSound[pageNumber].count {
+                quizDictionary[tinoHardQuizSound[pageNumber][i]] = tinoHardQuizAnswer[pageNumber][i]
+            }
+        }
+        if testData == "yaguEasy" {
+            soundNameInQuiz = yaguEasyQuizSound[pageNumber]
+            imageNameInQuiz = yaguEasyQuizImageName[pageNumber]
+            textInQuiz = yaguEasyTextArray[pageNumber]
+            for i in 0..<yaguEasyQuizSound[pageNumber].count {
+                quizDictionary[yaguEasyQuizSound[pageNumber][i]] = yaguEasyQuizAnswer[pageNumber][i]
+            }
+        }
+        else if testData == "yaguHard" {
+            soundNameInQuiz = yaguHardQuizSound[pageNumber]
+            imageNameInQuiz = yaguHardQuizImageName[pageNumber]
+            textInQuiz = yaguHardTextArray[pageNumber]
+            for i in 0..<yaguHardQuizSound[pageNumber].count {
+                quizDictionary[yaguHardQuizSound[pageNumber][i]] = yaguHardQuizAnswer[pageNumber][i]
+            }
         }
         else if testData == "paulEasy" {
-            let quizImg: String = QuizData.shared.paulEasyQuizImageName[pageNumber]
-            quizImageView.image = UIImage(named: quizImg)
-            quizLabel.text = QuizData.shared.paulEasyTextArray[pageNumber]
+            soundNameInQuiz = paulEasyQuizSound[pageNumber]
+            imageNameInQuiz = paulEasyQuizImageName[pageNumber]
+            textInQuiz = paulEasyTextArray[pageNumber]
+            for i in 0..<paulEasyQuizSound[pageNumber].count {
+                quizDictionary[paulEasyQuizSound[pageNumber][i]] = paulEasyQuizAnswer[pageNumber][i]
+            }
         }
         else if testData == "paulHard" {
-            let quizImg: String = QuizData.shared.paulHardQuizImageName[pageNumber]
-            quizImageView.image = UIImage(named: quizImg)
-            quizLabel.text = QuizData.shared.paulHardTextArray[pageNumber]
-        }
-        else if testData == "paulEasy" {
-            let quizImg: String = QuizData.shared.yaguEasyQuizImageName[pageNumber]
-            quizImageView.image = UIImage(named: quizImg)
-            quizLabel.text = QuizData.shared.paulEasyTextArray[pageNumber]
-        }
-        else if testData == "paulHard" {
-            let quizImg: String = QuizData.shared.yaguHardQuizImageName[pageNumber]
-            quizImageView.image = UIImage(named: quizImg)
-            quizLabel.text = QuizData.shared.paulHardTextArray[pageNumber]
+            soundNameInQuiz = paulHardQuizSound[pageNumber]
+            imageNameInQuiz = paulHardQuizImageName[pageNumber]
+            textInQuiz = paulHardTextArray[pageNumber]
+            for i in 0..<paulHardQuizSound[pageNumber].count {
+                quizDictionary[paulHardQuizSound[pageNumber][i]] = paulHardQuizAnswer[pageNumber][i]
+            }
         }
     }
     
-    func setQuizSound() {
-        if testData == "tinoEasy" {
-//            Data4.tinoEasyQuizSound[0].1.1]
-//            QuizData.shared.tinoEasyQuizSound1[pageNumber]
-        }
-        else if testData == "tinoHard" {
-           
-        }
-        else if testData == "paulEasy" {
-            
-        }
-        else if testData == "paulHard" {
-            
-        }
-        else if testData == "paulEasy" {
-            
-        }
-        else if testData == "paulHard" {
-            
+    func setQuizData() {
+        sendData()
+        shuffledExamples.removeAll()
+        
+        var examples = [Example]()
+            for j in 0..<3 {
+                let soundName = soundNameInQuiz[j]
+                let example = Example(soundName: soundName)
+                examples.append(example)
+            }
+        let answerExample = examples[0]
+        shuffledExamples = examples.shuffled()
+        let answerIndex = shuffledExamples.firstIndex { $0.soundName == answerExample.soundName }
+        if let index = answerIndex {
+            let quiz = Quiz(imageName: imageNameInQuiz, text: textInQuiz, examples: shuffledExamples, correctAnswerIndex: index)
+            stage.append(quiz)
         }
         
-        soundName = "5.app-record_start"
-//                initializePlayer(soundName: soundName)
-                self.audioPlayer?.play()
+        for quiz in stage {
+            correctAnswerIndex = quiz.correctAnswerIndex
+            quizSoundName = quiz.examples
+            soundName = quizSoundName![0].soundName
+            quizImageView.image = UIImage(named: quiz.imageName)
+            quizLabel.text = quiz.text
+        }
+
     }
     
+    func confirmAnswer() {
     
+        if userSelectedIndex == correctAnswerIndex {
+            print("정답")
+            isCorrect = true
+            correctLottie()
+        } else {
+            print("오답")
+            opportunity -= 1
+            isCorrect = false
+            incorrectPopUp()
+        }
+    }
     
-    @IBAction func nextPage(_ sender: Any) {
+    func playBubbleSound() {
+        effectSoundName = "dodori_quiz"
+        effectSoundPlayer()
+        self.audioPlayer2?.play()
+    }
+   
+    func correctLottie() {
+        let randomNo: UInt32 = arc4random_uniform(5) + 1;
+        let correctIconImageName = "correct_icon\(randomNo)"
+        effectSoundName = "dodori_stamp\(randomNo)"
+        effectSoundPlayer()
+        self.audioPlayer2?.play()
+        animationView = LOTAnimationView(name: correctIconImageName)
+        animationView.frame = CGRect(x: 0, y: 0, width: 1024, height: 768)
+        self.view.addSubview(animationView)
+        if pageNumber == 2 {
+            animationView.play(completion: {(true) in
+                self.nextPage()})
+        } else {
+            animationView.play(completion: {(true) in
+                self.changeExampleButtonColorOrange();
+                self.disabledExampleButton();
+                self.animationView.removeFromSuperview();
+                self.nextButton.isHidden = false
+            })
+        }
+    }
+
+
+    func incorrectPopUp() {
+        guard let storyboardId = self.restorationIdentifier else { return }
+        
+        guard let vc =
+            storyboard?.instantiateViewController(withIdentifier: "IncorrectPopUpView") as? IncorrectPopUpViewController else { return }
+        
+        vc.storyboardID = storyboardId
+        vc.delegate = self
+        vc.imageName = PopUpData.shared.changeIncorrectImage(storyBoardId: storyboardId)
+        vc.soundName = "dodori_quiz_wrong"
+        vc.view.backgroundColor = UIColor(white: 0, alpha: 0.75)
+        vc.modalPresentationStyle = .overCurrentContext
+        
+        self.present(vc, animated: false, completion: nil)
+    }
+
+}
+
+extension QuizViewController: IncorrectPopUpDelegate {
+    
+    @IBAction func nextPage() {
+        if isSolve == true {
+            ResultData.shared.totalOpportunityScore += 1
+            ResultData.shared.solvedOpportunityScore += opportunity
+        }
+        print("r\(ResultData.shared.totalOpportunityScore)")
+        print("s\(ResultData.shared.solvedOpportunityScore)")
         pageNumber += 1;
-        
+        self.audioPlayer?.pause()
+        self.audioPlayer2.pause()
+        self.defaultData()
+        animationView.removeFromSuperview()
+        animationView2.removeFromSuperview()
         if pageNumber == 3 {
             // 화면 전환할 뷰 컨트롤러를 Storyboard ID 정보를 이용, 읽어와서 객체로 생성함
             if let view = self.storyboard?.instantiateViewController(withIdentifier: "ResultView") {
@@ -175,72 +309,32 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
             }
         }
         else {
-            self.sendData()
-        }
-    }
-    
-    
-//    func setQuestionSound() {
-////        for i in
-//        soundName = "5.app-record_start"
-//        initializePlayer(soundName: soundName)
-//        self.audioPlayer?.play()
-//    }
-//
- 
-    // MARK: - Methods
-    // MARK: - Custom Method
-    func initializePlayer() {
-        guard let soundAsset: NSDataAsset = NSDataAsset(name: soundName) else {
-            print("음원 파일 에셋을 가져올 수 없습니다")
-            return
-        }
-        
-        do {
-            try self.audioPlayer = AVAudioPlayer(data: soundAsset.data)
-            self.audioPlayer.delegate = self
-        } catch let error as NSError {
-            print("플레이어 초기화 실패")
-            print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
-        }
-    }
-    
-    
-    @IBAction func touchUpPlayPauseButton(_ sender: UIButton) {
-        
-        sender.isSelected = !sender.isSelected
-        
-        if sender.isSelected {
+            setQuizData()
+            defaultButton()
+            initializePlayer()
             self.audioPlayer?.play()
-        } else {
-            self.audioPlayer?.pause()
         }
-        
     }
     
-    
-    // MARK: AVAudioPlayerDelegate
-    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        guard let error: Error = error else {
-            print("오디오 플레이어 디코드 오류발생")
-            return
-        }
-        
-        let message: String
-        message = "오디오 플레이어 오류 발생 \(error.localizedDescription)"
-        
-        let alert: UIAlertController = UIAlertController(title: "알림", message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        let okAction: UIAlertAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default) { (action: UIAlertAction) -> Void in
-            
-            self.dismiss(animated: true, completion: nil)
-        }
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
+    func playAuto() {
+        animationView.removeFromSuperview()
+        defaultButton()
+        playFileNumber = 0
+        soundName = (quizSoundName?[playFileNumber].soundName)!
+        initializePlayer()
+        self.audioPlayer?.play()
     }
-    
-    func audioPlayerDidFinishPlaying(_ Player: AVAudioPlayer, successfully flag: Bool) {
-        self.replayButton.isSelected = false
-    }
+}
 
+extension QuizViewController: TestIntroDelegate {
+    
+    func bubbleDefaultLottie() {
+        playBubbleSound()
+        animationView = LOTAnimationView(name: "bubble_stage4_1")
+        animationView.frame = CGRect(x: 175, y: 50, width: 277, height: 60)
+        self.view.addSubview(animationView)
+        animationView.play(completion: {(true) in
+            self.dodoriSpeakingImageView.isHidden = false
+        })
+    }
 }

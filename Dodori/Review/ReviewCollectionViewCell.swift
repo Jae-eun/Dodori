@@ -12,4 +12,13 @@ class ReviewCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var reviewImage: UIImageView!
     @IBOutlet weak var reviewText: UILabel!
+    
+    
+//    func makeReviewImagetoRound() {
+//        //        test.layer.borderWidth = 1
+//        reviewImage.layer.masksToBounds = false
+//        //        test.layer.borderColor = UIColor.black.cgColor
+//        reviewImage.layer.cornerRadius = reviewImage.imageframe.height/2
+//        reviewImage.clipsToBounds = true
+//    }
 }

@@ -10,151 +10,210 @@ import UIKit
 import Lottie
 import AVFoundation
 
-class ResultViewController: UIViewController {
+class ResultViewController: UIViewController, AVAudioPlayerDelegate {
 
-    let DataEnd = ResultData()
     var testData: String = ""
     var soundName: String = ""
     
     @IBOutlet weak var backgroundImage: UIImageView!
-
+    @IBOutlet weak var resultBoxImage: UIImageView!
     @IBOutlet weak var endBtn: UIButton!
-    
     @IBOutlet weak var reviewBtn: UIButton!
-    // 메인화면으로 이동
+    
+    var audioPlayer: AVAudioPlayer?
+    var backgroundImageName: String = ""
+    var resultBoxImageName: String = ""
+    var endButtonImageName: String = ""
+    var reviewButtonImageName: String = ""
+    var finalScore: Double = 0.0
+    var numberOfStarsScore: Int = 0
+    
+    public var animationView = LOTAnimationView()
 
     
     @IBAction func finishTest(_ sender: Any) {
+        self.audioPlayer?.pause()
         self.navigationController?.popToRootViewController(animated: false)
         ViewData.shared.selectedReview = nil
     }
     
-    
     @IBAction func goReview(_ sender: Any) {
+        self.audioPlayer?.pause()
+        ViewData.shared.selectedReview = "isReview"
         if let view = self.storyboard?.instantiateViewController(withIdentifier: "ReviewView") {
             self.navigationController?.pushViewController(view, animated:false)
         }
     }
     
-    
     func receiveData() {
         if ViewData.shared.selectedStory == "tino" {
-            testData = "tino"
+            if ViewData.shared.selectedLevel == "easy" {
+                testData = "tinoEasy"
+            }
+            else if ViewData.shared.selectedLevel == "hard" {
+                testData = "tinoHard"
+            }
         }
         else if ViewData.shared.selectedStory == "yagu" {
-            testData = "yagu"
+            if ViewData.shared.selectedLevel == "easy" {
+                testData = "yaguEasy"
+            }
+            else if ViewData.shared.selectedLevel == "hard" {
+                testData = "yaguHard"
+            }
         }
         else if ViewData.shared.selectedStory == "paul" {
-            testData = "paul"
+            if ViewData.shared.selectedLevel == "easy" {
+                testData = "paulEasy"
+            }
+            else if ViewData.shared.selectedLevel == "hard" {
+                testData = "paulHard"
+            }
         }
     }
     
     
     func sendData() {
-        if testData == "tino" {
-            let background: String = DataEnd.backgroundImage[0]
-            backgroundImage.image = UIImage(named: background)
-            let end: String = DataEnd.endBtnImage[0]
-            endBtn.imageView?.image = UIImage(named: end)
-            let review: String = DataEnd.reviewBtnImage[0]
-            reviewBtn.imageView?.image = UIImage(named: review)
+        if testData == "tinoEasy" || testData == "tinoHard" {
+            backgroundImageName = ResultData.shared.backgroundImage[0]
+            backgroundImage.image = UIImage(named: backgroundImageName)
+            endButtonImageName = ResultData.shared.endBtnImage[0]
+            endBtn.imageView?.image = UIImage(named: endButtonImageName)
+            reviewButtonImageName = ResultData.shared.reviewBtnImage[0]
+            reviewBtn.imageView?.image = UIImage(named: reviewButtonImageName)
         }
             
-        else if testData == "yagu" {
-            let background: String = DataEnd.backgroundImage[1]
-            backgroundImage.image = UIImage(named: background)
-            let end: String = DataEnd.endBtnImage[1]
-            endBtn.imageView?.image = UIImage(named: end)
-            let review: String = DataEnd.reviewBtnImage[1]
-            reviewBtn.imageView?.image = UIImage(named: review)
+        else if testData == "yaguEasy" || testData == "yaguHard" {
+            backgroundImageName = ResultData.shared.backgroundImage[1]
+            backgroundImage.image = UIImage(named: backgroundImageName)
+            endButtonImageName = ResultData.shared.endBtnImage[1]
+            endBtn.imageView?.image = UIImage(named: endButtonImageName)
+            reviewButtonImageName = ResultData.shared.reviewBtnImage[1]
+            reviewBtn.imageView?.image = UIImage(named: reviewButtonImageName)
         }
             
-        else if testData == "paul" {
-            let background: String = DataEnd.backgroundImage[2]
-            backgroundImage.image = UIImage(named: background)
-            let end: String = DataEnd.endBtnImage[2]
-            endBtn.imageView?.image = UIImage(named: end)
-            let review: String = DataEnd.reviewBtnImage[2]
-            reviewBtn.imageView?.image = UIImage(named: review)
+        else if testData == "paulEasy" || testData == "paulHard" {
+            backgroundImageName = ResultData.shared.backgroundImage[2]
+            backgroundImage.image = UIImage(named: backgroundImageName)
+            endButtonImageName = ResultData.shared.endBtnImage[2]
+            endBtn.imageView?.image = UIImage(named: endButtonImageName)
+            reviewButtonImageName = ResultData.shared.reviewBtnImage[2]
+            reviewBtn.imageView?.image = UIImage(named: reviewButtonImageName)
         }
+        endBtn.setImage(endBtn?.imageView?.image, for: UIControlState.normal)
+        reviewBtn.setImage(reviewBtn?.imageView?.image, for: UIControlState.normal)
+    }
+    
+    func calculateScore() {
+        print(ResultData.shared.solvedOpportunityScore)
+        print(ResultData.shared.totalOpportunityScore)
+        finalScore = Double(ResultData.shared.solvedOpportunityScore) / Double(ResultData.shared.totalOpportunityScore)
+        finalScore *= 100
+        print(finalScore)
+    }
+    
+    func setResultBoxImage() {
+        if finalScore >= 80 {
+            resultBoxImageName = "result_1"
+            numberOfStarsScore = 5
+        } else if finalScore >= 60 && finalScore < 80 {
+            resultBoxImageName = "result_2"
+            numberOfStarsScore = 4
+        } else if finalScore >= 40 && finalScore < 60 {
+            resultBoxImageName = "result_3"
+            numberOfStarsScore = 3
+        } else if finalScore >= 20 && finalScore < 40 {
+            resultBoxImageName = "result_4"
+            numberOfStarsScore = 2
+        } else {
+            resultBoxImageName = "result_5"
+            numberOfStarsScore = 1
+        }
+        resultBoxImage.image = UIImage(named: resultBoxImageName)
+        saveNumberOfStarsScore()
     }
     
     func starLottie() {
-        let animationView = LOTAnimationView(name: "star_anim5")
-//        animationView.frame = CGRect(x: 170, y: 115, width: 687, height: 300)
+        if finalScore >= 80 {
+            animationView = LOTAnimationView(name: "star_anim5")
+        } else if finalScore >= 60 && finalScore < 80 {
+            animationView = LOTAnimationView(name: "star_anim4")
+        } else if finalScore >= 40 && finalScore < 60 {
+            animationView = LOTAnimationView(name: "star_anim3")
+        } else if finalScore >= 20 && finalScore < 40 {
+            animationView = LOTAnimationView(name: "star_anim2")
+        } else {
+            animationView = LOTAnimationView(name: "star_anim1")
+        }
         animationView.frame = CGRect(x: 162, y: 110, width: 700, height: 250)
         self.view.addSubview(animationView)
-        animationView.play()
-        //        animationView.pause()
-        //        animationView.willRemoveSubview(animationView)
-        //                        nextPage()
-        
+        animationView.play(completion: {(true) in self.playResultSound()})
     }
     
+    func playResultSound() {
+        if finalScore >= 80 {
+            soundName = "dodori_result_1"
+        } else if finalScore >= 60 && finalScore < 80 {
+            soundName = "dodori_result_2"
+        } else if finalScore >= 40 && finalScore < 60 {
+            soundName = "dodori_result_3"
+        } else if finalScore >= 20 && finalScore < 40 {
+            soundName = "dodori_result_4"
+        } else {
+            soundName = "dodori_result_5"
+        }
+        initializePlayer()
+        self.audioPlayer?.play()
+    }
     
-    
-//    @IBAction func EasyBtn(_ sender: Any) {
-//        ViewData.shared.selectedLevel = "easy"
-//        changeView()
-//    }
-//
-//    @IBAction func HardBtn(_ sender: Any) {
-//        ViewData.shared.selectedLevel = "hard"
-//        changeView()
-//    }
-//
-//    func changeView() {
-//        if let view = self.storyboard?.instantiateViewController(withIdentifier: "IntroView") {
-//            self.navigationController?.pushViewController(view, animated:false)
-//        }
-//    }
+    func saveNumberOfStarsScore() {
+        if testData == "yaguEasy" {
+            ResultData.shared.yaguEasyScore = numberOfStarsScore
+        } else if testData == "yaguHard" {
+            ResultData.shared.yaguHardScore = numberOfStarsScore
+        } else if testData == "tinoEasy" {
+            ResultData.shared.tinoEasyScore = numberOfStarsScore
+        } else if testData == "tinoHard" {
+            ResultData.shared.tinoHardScore = numberOfStarsScore
+        } else if testData == "paulEasy" {
+            ResultData.shared.paulEasyScore = numberOfStarsScore
+        } else if testData == "paulHard" {
+            ResultData.shared.paulHardScore = numberOfStarsScore
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         receiveData()
         sendData()
+        calculateScore()
+        setResultBoxImage()
         starLottie()
+        playStarLottieSound()
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    var audioPlayer: AVAudioPlayer?
-    
-    func initializePlayer(soundName: String) {
+    func initializePlayer() {
         guard let soundAsset: NSDataAsset = NSDataAsset(name: soundName) else {
             print("음원 파일 에셋을 가져올 수 없습니다")
             return
         }
         do {
             try self.audioPlayer = AVAudioPlayer(data: soundAsset.data)
-            self.audioPlayer!.delegate = self as? AVAudioPlayerDelegate
+            self.audioPlayer?.delegate = self
         } catch let error as NSError {
             print("플레이어 초기화 실패")
             print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
         }
     }
 
-    func ShowStarLottie() {
+    func playStarLottieSound() {
         soundName = "10.app-result_star"
-        initializePlayer(soundName: soundName)
+        initializePlayer()
         self.audioPlayer?.play()
     }
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

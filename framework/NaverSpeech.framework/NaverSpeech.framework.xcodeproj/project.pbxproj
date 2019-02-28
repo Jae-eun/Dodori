@@ -7,46 +7,44 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		CDE485C220B72AD5003280F2 /* .DS_Store */ = {isa = PBXFileReference; lastKnownFileType = file; path = .DS_Store; sourceTree = "<group>"; };
-		CDE485C320B72AD5003280F2 /* state_diagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = state_diagram.png; sourceTree = "<group>"; };
-		CDE485C420B72AD5003280F2 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
-		CDE485C520B72AD5003280F2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		CDE485C620B72AD5003280F2 /* Headers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Headers; sourceTree = "<group>"; };
-		CDE485C720B72AD5003280F2 /* NaverSpeech */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = NaverSpeech; sourceTree = "<group>"; };
-		CDE485C820B72AD5003280F2 /* libnsclient.la */ = {isa = PBXFileReference; lastKnownFileType = text; path = libnsclient.la; sourceTree = "<group>"; };
-		CDE485C920B72AD5003280F2 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Modules; sourceTree = "<group>"; };
-		CDE485CA20B72AD5003280F2 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
-		CDE485CB20B72AD5003280F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Info.plist; sourceTree = "<group>"; };
+		0082792B218A93F400324097 /* state_diagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = state_diagram.png; sourceTree = "<group>"; };
+		0082792C218A93F400324097 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		0082792D218A93F400324097 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		0082792E218A93F400324097 /* Headers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Headers; sourceTree = "<group>"; };
+		0082792F218A93F400324097 /* NaverSpeech */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = NaverSpeech; sourceTree = "<group>"; };
+		00827930218A93F400324097 /* libnsclient.la */ = {isa = PBXFileReference; lastKnownFileType = text; path = libnsclient.la; sourceTree = "<group>"; };
+		00827931218A93F400324097 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Modules; sourceTree = "<group>"; };
+		00827932218A93F400324097 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		00827933218A93F400324097 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		CDE485BC20B72AD5003280F2 = {
+		00827925218A93F400324097 = {
 			isa = PBXGroup;
 			children = (
-				CDE485C220B72AD5003280F2 /* .DS_Store */,
-				CDE485C320B72AD5003280F2 /* state_diagram.png */,
-				CDE485C420B72AD5003280F2 /* Makefile.am */,
-				CDE485C520B72AD5003280F2 /* .gitignore */,
-				CDE485C620B72AD5003280F2 /* Headers */,
-				CDE485C720B72AD5003280F2 /* NaverSpeech */,
-				CDE485C820B72AD5003280F2 /* libnsclient.la */,
-				CDE485C920B72AD5003280F2 /* Modules */,
-				CDE485CA20B72AD5003280F2 /* Makefile.in */,
-				CDE485CB20B72AD5003280F2 /* Info.plist */,
+				0082792B218A93F400324097 /* state_diagram.png */,
+				0082792C218A93F400324097 /* Makefile.am */,
+				0082792D218A93F400324097 /* .gitignore */,
+				0082792E218A93F400324097 /* Headers */,
+				0082792F218A93F400324097 /* NaverSpeech */,
+				00827930218A93F400324097 /* libnsclient.la */,
+				00827931218A93F400324097 /* Modules */,
+				00827932218A93F400324097 /* Makefile.in */,
+				00827933218A93F400324097 /* Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		CDE485C120B72AD5003280F2 /* NaverSpeech.framework */ = {
+		0082792A218A93F400324097 /* NaverSpeech.framework */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = CDE485CC20B72AD5003280F2 /* Build configuration list for PBXLegacyTarget "NaverSpeech.framework" */;
+			buildConfigurationList = 00827934218A93F400324097 /* Build configuration list for PBXLegacyTarget "NaverSpeech.framework" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = /Users/swucomputer/Desktop/Dodori/framework/NaverSpeech.framework;
+			buildWorkingDirectory = "/Users/ijaeeun/Downloads/naverspeech-sdk-ios-ncp/framework/NaverSpeech.framework";
 			dependencies = (
 			);
 			name = NaverSpeech.framework;
@@ -56,28 +54,28 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		CDE485BD20B72AD5003280F2 /* Project object */ = {
+		00827926218A93F400324097 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 			};
-			buildConfigurationList = CDE485C020B72AD5003280F2 /* Build configuration list for PBXProject "NaverSpeech.framework" */;
+			buildConfigurationList = 00827929218A93F400324097 /* Build configuration list for PBXProject "NaverSpeech.framework" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = CDE485BC20B72AD5003280F2;
+			mainGroup = 00827925218A93F400324097;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CDE485C120B72AD5003280F2 /* NaverSpeech.framework */,
+				0082792A218A93F400324097 /* NaverSpeech.framework */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		CDE485BE20B72AD5003280F2 /* Debug */ = {
+		00827927218A93F400324097 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -89,7 +87,7 @@
 			};
 			name = Debug;
 		};
-		CDE485BF20B72AD5003280F2 /* Release */ = {
+		00827928218A93F400324097 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -100,7 +98,7 @@
 			};
 			name = Release;
 		};
-		CDE485CD20B72AD5003280F2 /* Debug */ = {
+		00827935218A93F400324097 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -115,7 +113,7 @@
 			};
 			name = Debug;
 		};
-		CDE485CE20B72AD5003280F2 /* Release */ = {
+		00827936218A93F400324097 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -130,25 +128,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CDE485C020B72AD5003280F2 /* Build configuration list for PBXProject "NaverSpeech.framework" */ = {
+		00827929218A93F400324097 /* Build configuration list for PBXProject "NaverSpeech.framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CDE485BE20B72AD5003280F2 /* Debug */,
-				CDE485BF20B72AD5003280F2 /* Release */,
+				00827927218A93F400324097 /* Debug */,
+				00827928218A93F400324097 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CDE485CC20B72AD5003280F2 /* Build configuration list for PBXLegacyTarget "NaverSpeech.framework" */ = {
+		00827934218A93F400324097 /* Build configuration list for PBXLegacyTarget "NaverSpeech.framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CDE485CD20B72AD5003280F2 /* Debug */,
-				CDE485CE20B72AD5003280F2 /* Release */,
+				00827935218A93F400324097 /* Debug */,
+				00827936218A93F400324097 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = CDE485BD20B72AD5003280F2 /* Project object */;
+	rootObject = 00827926218A93F400324097 /* Project object */;
 }

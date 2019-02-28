@@ -10,25 +10,18 @@ import UIKit
 import Lottie
 import AVFoundation
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, AVAudioPlayerDelegate {
     
     @IBOutlet weak var yaguReviewBtn: UIButton!
     @IBOutlet weak var tinoReviewBtn: UIButton!
     @IBOutlet weak var paulReviewBtn: UIButton!
     
     var soundName: String = ""
+    var effectSoundName: String = ""
     
-    @IBOutlet weak var test: UIImageView!
-    
-    func image() {
-//        test.layer.borderWidth = 1
-        test.layer.masksToBounds = false
-//        test.layer.borderColor = UIColor.black.cgColor
-        test.layer.cornerRadius = test.frame.height/2
-        test.clipsToBounds = true
-    }
     @IBAction func tinoBtn(_ sender: Any) {
         ViewData.shared.selectedStory = "tino"
+        self.audioPlayer?.pause()
         pressedStoryBtn()
         self.changeView()
     }
@@ -36,12 +29,14 @@ class MainViewController: UIViewController {
     @IBAction func goTinoReview(_ sender: Any) {
         ViewData.shared.selectedStory = "tino"
         ViewData.shared.selectedReview = "isReview"
+        self.audioPlayer?.pause()
         pressedPopupBtn()
         self.changeReviewView()
     }
     
     @IBAction func yaguBtn(_ sender: Any) {
         ViewData.shared.selectedStory = "yagu"
+        self.audioPlayer?.pause()
         pressedStoryBtn()
         self.changeView()
     }
@@ -49,6 +44,7 @@ class MainViewController: UIViewController {
     @IBAction func goYaguReview(_ sender: Any) {
         ViewData.shared.selectedStory = "yagu"
         ViewData.shared.selectedReview = "isReview"
+        self.audioPlayer?.pause()
         pressedPopupBtn()
         self.changeReviewView()
     }
@@ -56,6 +52,7 @@ class MainViewController: UIViewController {
     
     @IBAction func paulBtn(_ sender: Any) {
         ViewData.shared.selectedStory = "paul"
+        self.audioPlayer?.pause()
         pressedStoryBtn()
         self.changeView()
     }
@@ -63,6 +60,7 @@ class MainViewController: UIViewController {
     @IBAction func goPaulReview(_ sender: Any) {
         ViewData.shared.selectedStory = "paul"
         ViewData.shared.selectedReview = "isReview"
+        self.audioPlayer?.pause()
         pressedPopupBtn() 
         self.changeReviewView()
     }
@@ -73,16 +71,6 @@ class MainViewController: UIViewController {
             self.navigationController?.pushViewController(view, animated: false)
         }
     }
-    
-
-    
-//    func storyPopUp() {
-//        let popUpView = StoryPopUp.instanceFromNib()
-//
-//
-//        popUpView.frame = self.view.frame
-//        self.view.addSubview(popUpView)
-//    }
     
     @IBAction func yaguStoryPopUp(_ sender: Any) {
         ViewData.shared.selectedStory = "yagu"
@@ -100,29 +88,29 @@ class MainViewController: UIViewController {
     }
     
     
-        func changeReviewView() {
-        if let view = self.storyboard?.instantiateViewController(withIdentifier: "ReviewView") {
+    func changeReviewView() {
+        if let view = self.storyboard?.instantiateViewController(withIdentifier: "LevelView") {
             self.navigationController?.pushViewController(view, animated: false)
         }
     }
     
     func hiddenReviewBtn() {
-        if Test1Data.shared.tinoEasyReview == [] {
-            if Test1Data.shared.tinoHardReview == [] {
+        if ReviewData.shared.tinoEasyWordReview == [] {
+            if ReviewData.shared.tinoHardWordReview == [] {
                 tinoReviewBtn.isHidden = true
             }
         } else {
             tinoReviewBtn.isHidden = false
         }
-        if Test1Data.shared.yaguEasyReview == [] {
-            if Test1Data.shared.yaguHardReview == [] {
+        if ReviewData.shared.yaguEasyWordReview == [] {
+            if ReviewData.shared.yaguHardWordReview == [] {
                 yaguReviewBtn.isHidden = true
             }
         } else {
             yaguReviewBtn.isHidden = false
         }
-        if Test1Data.shared.paulEasyReview == [] {
-            if Test1Data.shared.paulHardReview == [] {
+        if ReviewData.shared.paulEasyWordReview == [] {
+            if ReviewData.shared.paulHardWordReview == [] {
                 paulReviewBtn.isHidden = true
             }
         } else {
@@ -138,99 +126,77 @@ class MainViewController: UIViewController {
         guard let vc =
             storyboard.instantiateViewController(withIdentifier: "StoryPopUpView") as? StoryPopUpViewController else { return }
         
-//        guard let storyName = ViewData.shared.selectedStory else { return }
-//        storyPopUpImage.image = UIImage(named: PopUpData.shared.changeImage(storyName: storyName))
-        
-//        vc.storyPopUpImage.image = UIImage(named: )
         vc.view.backgroundColor = UIColor(white: 0, alpha: 0.75)
         vc.modalPresentationStyle = .overCurrentContext
         
         self.present(vc, animated: false, completion: nil)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//starLottie()
-//        dodoriLottie()
-        image()
-        hiddenReviewBtn()
-        // Do any additional setup after loading the view.
+
         audioPlayer?.prepareToPlay()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        playBGM()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    func starLottie() {
 
-        let animationView = LOTAnimationView(name: "star_anim1")
-//        animationView.frame = CGRect(x: 169, y: 155, width: 687, height: 300)
-        animationView.frame = CGRect(x: 162, y: 110, width: 700, height: 250)
-        self.view.addSubview(animationView)
-        animationView.play()
-                print(animationView)
-        //        animationView.pause()
-        //        animationView.willRemoveSubview(animationView)
-        //                        nextPage()
-        
-    }
-    
-    func dodoriLottie() {
-        let animationView = LOTAnimationView(name: "dodori_anim")
-        animationView.frame = CGRect(x: 166, y: 200, width: 329, height: 502)
-        self.view.addSubview(animationView)
-        animationView.play()
-        //        animationView.pause()
-        //        animationView.willRemoveSubview(animationView)
-        //                        nextPage()
-        
-    }
-    
     
     var audioPlayer: AVAudioPlayer?
+    var audioPlayer2: AVAudioPlayer?
     
-    func initializePlayer(soundName: String) {
+    func initializePlayer() {
         guard let soundAsset: NSDataAsset = NSDataAsset(name: soundName) else {
             print("음원 파일 에셋을 가져올 수 없습니다")
             return
         }
         do {
             try self.audioPlayer = AVAudioPlayer(data: soundAsset.data)
-            self.audioPlayer!.delegate = self as? AVAudioPlayerDelegate
+            self.audioPlayer?.delegate = self
         } catch let error as NSError {
             print("플레이어 초기화 실패")
             print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
         }
     }
     
-//    func pressedStoryBtn() {
-//        soundName = "yagugong1_1"
-//        initializePlayer(soundName: soundName)
-//    }
-    
+    func effectSoundPlayer() {
+        guard let soundAsset: NSDataAsset = NSDataAsset(name: effectSoundName) else {
+            print("음원 파일 에셋을 가져올 수 없습니다")
+            return
+        }
+        do {
+            try self.audioPlayer2 = AVAudioPlayer(data: soundAsset.data)
+            self.audioPlayer2?.delegate = self
+        } catch let error as NSError {
+            print("플레이어 초기화 실패")
+            print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
+        }
+    }
+
     func pressedStoryBtn() {
-        soundName = "4.app-story_select"
-        initializePlayer(soundName: soundName)
-        self.audioPlayer?.play()
+        effectSoundName = "4.app-story_select"
+        effectSoundPlayer()
+        self.audioPlayer2?.play()
     }
     
     func pressedPopupBtn() {
-        soundName = "2.app-popup"
-        initializePlayer(soundName: soundName)
-        self.audioPlayer?.play()
+        effectSoundName = "2.app-popup"
+        effectSoundPlayer()
+        self.audioPlayer2?.play()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func playBGM() {
+        soundName = "3.app-Lovable_Clown_Sit_Com"
+        self.audioPlayer?.volume = SettingData.shared.mainBgmSoundVolume
+        initializePlayer()
+        self.audioPlayer?.play()
+        self.audioPlayer?.numberOfLoops = -1
     }
-    */
-
+    
+    
 }

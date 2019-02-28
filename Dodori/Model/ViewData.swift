@@ -8,12 +8,29 @@
 import Foundation
 import UIKit
 
-let viewData: ViewData = ViewData()
-
-//class ViewData: NSObject {
 class ViewData {
     static let shared: ViewData = ViewData()
     
-    var selectedStory: String?
-    var selectedLevel: String?
+    let pageNum = ["training_stage4_circle1", "training_stage4_circle2", "training_stage4_circle3"]
+    
+    var introID: String?
+    var selectedStory: String? = "yagu"
+    var selectedLevel: String? = "Easy"
+    var selectedReview: String?
+    
+    func changeImage(storyBoardId: String) -> String {
+        
+        var introImageName : String
+        switch storyBoardId {
+        case "Test1View":
+            introImageName = "introSp1"
+        case "Test2View":
+            introImageName = "introSp2"
+        case "StoryView":
+            introImageName = "introSp3"
+        default:
+            introImageName = "introSp4"
+        }
+        return introImageName
+    }
 }

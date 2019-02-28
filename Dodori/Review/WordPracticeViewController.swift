@@ -1,5 +1,5 @@
 //
-//  Test1ReviewViewController.swift
+//  WordPracticeViewController.swift
 //  Dodori
 //
 //  Created by 이재은 on 2018. 9. 4..
@@ -25,7 +25,7 @@ import Lottie
 import CoreData
 
 
-class Test1ReviewViewController: UIViewController, AVAudioPlayerDelegate {
+class WordPracticeViewController: UIViewController, AVAudioPlayerDelegate {
     
     // MARK: IBOutlets
     @IBOutlet var playPauseButton: UIButton!
@@ -34,55 +34,31 @@ class Test1ReviewViewController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet weak var step1ReviewPronunciationLabel: UILabel!
     @IBOutlet weak var recognitionResultLabel: UILabel!
     @IBOutlet weak var recognitionButton: UIButton!
+    @IBOutlet weak var dodoriSpeakingImageView: UIImageView!
     
     // MARK:- Properties
     var player: AVAudioPlayer?
-    var pageNumber: Int = 0
-    var testData: String = ""
-    var reviewPageNum: Array<Int>?
+    var player2: AVAudioPlayer?
+    var pageNumber: Int = ReviewData.shared.pageNumber ?? 0
+    var testData: String = ReviewData.shared.testData ?? "yaguEasy"
     var soundName: String = ""
-    var step1ReviewImageName: String = ""
+    var effectSoundName: String = ""
+    var step1ReviewFileName: String = ""
     public var animationView = LOTAnimationView()
-    
+    var isCorrect: Bool = false
 //    func getContext() -> NSManagedObjectContext {
 //        let appDelegate = UIApplication.shared.delegate as? AppDelegate
 //        return appDelegate?.persistentContainer.viewContext
 //    }
 
-    
+
     // 메인화면으로 이동
     @IBAction func goHome(_ sender: Any) {
-        self.navigationController?.popToRootViewController(animated: false)
-        ViewData.shared.selectedReview = nil
+        self.navigationController?.popViewController(animated: false)
+//        ViewData.shared.selectedReview = nil
     }
     
     
-    func receiveData() {
-//        if ViewData.shared.selectedStory == "tino" {
-//            if ViewData.shared.selectedLevel == "easy" {
-//                testData = "tinoEasy"
-//            }
-//            else if ViewData.shared.selectedLevel == "hard" {
-//                testData = "tinoHard"
-//            }
-//        }
-//        else if ViewData.shared.selectedStory == "yagu" {
-//            if ViewData.shared.selectedLevel == "easy" {
-//                testData = "yaguEasy"
-//            }
-//            else if ViewData.shared.selectedLevel == "hard" {
-//                testData = "yaguHard"
-//            }
-//        }
-//        else if ViewData.shared.selectedStory == "paul" {
-//            if ViewData.shared.selectedLevel == "easy" {
-//                testData = "paulEasy"
-//            }
-//            else if ViewData.shared.selectedLevel == "hard" {
-//                testData = "paulHard"
-//            }
-//        }
-    }
     
     func testDataDefault() {
         recognitionResultLabel.text = nil
@@ -90,42 +66,41 @@ class Test1ReviewViewController: UIViewController, AVAudioPlayerDelegate {
     
     func sendData() {
 //        self.testDataDefault()
-//
         if testData == "tinoEasy" {
-            step1ReviewImageName = Test1Data.shared.tinoEasyFileName[pageNumber]
-            step1ReviewImageView.image = UIImage(named: step1ReviewImageName)
+            step1ReviewFileName = Test1Data.shared.tinoEasyFileName[pageNumber]
+            step1ReviewImageView.image = UIImage(named: step1ReviewFileName)
             step1ReviewWordLabel.text = Test1Data.shared.tinoEasyTextArray[pageNumber]
             step1ReviewPronunciationLabel.text = Test1Data.shared.tinoEasyPronunArray[pageNumber]
         }
         else if testData == "tinoHard" {
-            step1ReviewImageName = Test1Data.shared.tinoHardFileName[pageNumber]
-            step1ReviewImageView.image = UIImage(named: step1ReviewImageName)
+            step1ReviewFileName = Test1Data.shared.tinoHardFileName[pageNumber]
+            step1ReviewImageView.image = UIImage(named: step1ReviewFileName)
             step1ReviewWordLabel.text = Test1Data.shared.tinoHardTextArray[pageNumber]
             step1ReviewPronunciationLabel.text = Test1Data.shared.tinoHardPronunArray[pageNumber]
         }
         else if testData == "yaguEasy" {
-            step1ReviewImageName = Test1Data.shared.yaguEasyFileName[pageNumber]
-            step1ReviewImageView.image = UIImage(named: step1ReviewImageName)
+            step1ReviewFileName = Test1Data.shared.yaguEasyFileName[pageNumber]
+            step1ReviewImageView.image = UIImage(named: step1ReviewFileName)
             step1ReviewWordLabel.text = Test1Data.shared.yaguEasyTextArray[pageNumber]
             step1ReviewPronunciationLabel.text = Test1Data.shared.yaguEasyPronunArray[pageNumber]
         }
         else if testData == "yaguHard" {
-            step1ReviewImageName = Test1Data.shared.yaguHardFileName[pageNumber]
-            step1ReviewImageView.image = UIImage(named: step1ReviewImageName)
+            step1ReviewFileName = Test1Data.shared.yaguHardFileName[pageNumber]
+            step1ReviewImageView.image = UIImage(named: step1ReviewFileName)
             step1ReviewWordLabel.text = Test1Data.shared.yaguHardTextArray[pageNumber]
             step1ReviewPronunciationLabel.text = Test1Data.shared.yaguHardPronunArray[pageNumber]
         }
         else if testData == "paulEasy" {
-            step1ReviewImageName = Test1Data.shared.yaguEasyFileName[pageNumber]
-            step1ReviewImageView.image = UIImage(named: step1ReviewImageName)
-            step1ReviewWordLabel.text = Test1Data.shared.yaguEasyTextArray[pageNumber]
-            step1ReviewPronunciationLabel.text = Test1Data.shared.yaguEasyPronunArray[pageNumber]
+            step1ReviewFileName = Test1Data.shared.paulEasyFileName[pageNumber]
+            step1ReviewImageView.image = UIImage(named: step1ReviewFileName)
+            step1ReviewWordLabel.text = Test1Data.shared.paulEasyTextArray[pageNumber]
+            step1ReviewPronunciationLabel.text = Test1Data.shared.paulEasyPronunArray[pageNumber]
         }
         else if testData == "paulHard" {
-            step1ReviewImageName = Test1Data.shared.yaguHardFileName[pageNumber]
-            step1ReviewImageView.image = UIImage(named: step1ReviewImageName)
-            step1ReviewWordLabel.text = Test1Data.shared.yaguHardTextArray[pageNumber]
-            step1ReviewPronunciationLabel.text = Test1Data.shared.yaguHardPronunArray[pageNumber]
+            step1ReviewFileName = Test1Data.shared.paulHardFileName[pageNumber]
+            step1ReviewImageView.image = UIImage(named: step1ReviewFileName)
+            step1ReviewWordLabel.text = Test1Data.shared.paulHardTextArray[pageNumber]
+            step1ReviewPronunciationLabel.text = Test1Data.shared.paulHardPronunArray[pageNumber]
         }
     }
     
@@ -134,17 +109,13 @@ class Test1ReviewViewController: UIViewController, AVAudioPlayerDelegate {
     // MARK: - override
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-     
-//        self.receiveData()
-//        self.sendData()
+
+        self.sendData()
         
         player?.prepareToPlay()
+        player2?.prepareToPlay()
     }
-    
-
-    
-
+  
     
     // MARK: - Methods
     // MARK: - Custom Method
@@ -163,9 +134,24 @@ class Test1ReviewViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    func effectSoundPlayer() {
+        guard let soundAsset: NSDataAsset = NSDataAsset(name: effectSoundName) else {
+            print("음원 파일 에셋을 가져올 수 없습니다")
+            return
+        }
+        
+        do {
+            try self.player2 = AVAudioPlayer(data: soundAsset.data)
+            self.player2?.delegate = self
+        } catch let error as NSError {
+            print("플레이어 초기화 실패")
+            print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
+        }
+    }
+    
     
     @IBAction func touchUpPlayPauseButton(_ sender: UIButton) {
-        
+        pressedPronunciation()
         sender.isSelected = !sender.isSelected
         
         if sender.isSelected {
@@ -199,8 +185,6 @@ class Test1ReviewViewController: UIViewController, AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ Player: AVAudioPlayer, successfully flag: Bool) {
         self.playPauseButton.isSelected = false
     }
-    
-    
     
     
     // MARK: - init
@@ -266,13 +250,13 @@ class Test1ReviewViewController: UIViewController, AVAudioPlayerDelegate {
                              green: 0,
                              blue: 0,
                              alpha: 1)
-}
+    }
 
 
 /*
  * NSKRecognizerDelegate protocol 구현부
  */
-extension Test1ReviewViewController: NSKRecognizerDelegate {
+extension WordPracticeViewController: NSKRecognizerDelegate {
     
     public func recognizerDidEnterReady(_ aRecognizer: NSKRecognizer!) {
         print("Event occurred: Ready")
@@ -290,6 +274,10 @@ extension Test1ReviewViewController: NSKRecognizerDelegate {
 
         self.recognitionButton.isEnabled = true
         try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.correctPronunciation()
+        }
     }
     
     public func recognizer(_ aRecognizer: NSKRecognizer!, didRecordSpeechData aSpeechData: Data!) {
@@ -308,39 +296,86 @@ extension Test1ReviewViewController: NSKRecognizerDelegate {
         
         // self.setRecognitionButtonTitle(withText: "Record", color: .blue)
         self.recognitionButton.isEnabled = true
-        self.recognitionResultLabel.text = "Error: " + aError.localizedDescription
+        print("Error: " + aError.localizedDescription)
+        self.recognitionResultLabel.text = "마이크 버튼을 다시 누르세요"
         
         if self.speechRecognizer.isRunning {
             self.speechRecognizer.cancel()
-            self.recognitionResultLabel.text = "Canceled"
+//            self.recognitionResultLabel.text = "Canceled"
             self.recognitionButton.isEnabled = true
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient)
+        }
+    }
+    
+    func correctPronunciation() {
+        if isCorrect == true {
+            self.correctLottie()
+        } else {
+            self.bubbleLottie()
         }
     }
     
     public func recognizer(_ aRecognizer: NSKRecognizer!, didReceive aResult: NSKRecognizedResult!) {
         print("Final result: \(aResult)")
         
-        if let result = aResult.results.first as? String {
+        if var result = aResult.results.first as? String {
+           result = result.trimmingCharacters(in: ["?"])
             self.recognitionResultLabel.text = result
-            if step1ReviewWordLabel.text != result {
+            let text = step1ReviewWordLabel.text!
+            if text != result {
                 self.recognitionResultLabel.textColor = redcolor
-                self.recognitionResultLabel.text = result
+                isCorrect = false
+                var textIndex: DefaultIndices<String.CharacterView>
+                var incorrectRange: [NSRange] = []
                 
+                if result.count > text.count {
+                    textIndex = text.characters.indices
+                } else {
+                    textIndex = result.characters.indices
+                }
+                
+                for index in textIndex {
+                    if result[index] == text[index] {
+                        let range = (result as NSString).range(of: String(result[index]))
+                        incorrectRange.append(range)
+                        let attributedString = NSMutableAttributedString(string: result)
+                        
+                        for i in 0 ..< incorrectRange.count {
+                            attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: incorrectRange[i])
+                        }
+                        recognitionResultLabel.attributedText = attributedString
+                    }
+                }
             } else {
                 self.recognitionResultLabel.textColor = bluecolor
                 self.recognitionResultLabel.text = result
+                isCorrect = true
             }
             recognitionButton.isSelected = false
             recognitionButton.setImage(UIImage(named : "voiceBtn"), for: UIControlState.normal)
-            
         }
-        
+    }
+    
+    func pressedBtn() {
+        soundName = "1.app-button"
+        effectSoundPlayer()
+        self.player2?.play()
+    }
+    
+    func pressedPronunciation() {
+        soundName = "\(step1ReviewFileName)_sound"
+        initializePlayer()
     }
     
     func playCorrectLottieSound() {
-        initializePlayer()
-        self.player?.play()
+        effectSoundPlayer()
+        self.player2?.play()
+    }
+    
+    func playBubbleSound() {
+        soundName = "dodori_wrong"
+        effectSoundPlayer()
+        self.player2?.play()
     }
     
     func correctLottie() {
@@ -349,10 +384,20 @@ extension Test1ReviewViewController: NSKRecognizerDelegate {
         print(correctIconImageName)
         soundName = "dodori_stamp\(randomNo)"
         print(soundName)
+        playCorrectLottieSound()
         animationView = LOTAnimationView(name: correctIconImageName)
         animationView.frame = CGRect(x: 0, y: 0, width: 1024, height: 768)
         self.view.addSubview(animationView)
-        animationView.play(completion: {(true) in self.playCorrectLottieSound()})
+        animationView.play(completion: {(true) in self.animationView.removeFromSuperview()})
+    }
+    
+    func bubbleLottie() {
+        playBubbleSound()
+        dodoriSpeakingImageView.isHidden = true
+        animationView = LOTAnimationView(name: "bubble_stage1,2_3")
+        animationView.frame = CGRect(x: 175, y: 50, width: 336, height: 60)
+        self.view.addSubview(animationView)
+        animationView.play()
     }
 }
 

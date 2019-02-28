@@ -31,32 +31,25 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
     var animationView: LOTAnimationView = LOTAnimationView(name: " ")
     var storyPageNum: Int = 0
     var replayButton: UIButton = UIButton()
- 
-    
+    var quizSound : Array<String>  = ["1","2","3"]
+    var button: UIButton = UIButton()
     
     // 메인화면으로 이동
     @IBAction func goHome(_ sender: Any) {
+        self.pressedBtn()
         self.navigationController?.popToRootViewController(animated: false)
         ViewData.shared.selectedReview = nil
     }
     
     func up(view: UIView) {
-        view.center.y -= 110
+        view.center.y -= 150
         self.homeBtn.alpha = 0
     }
     
     func down(view: UIView) {
-        view.center.y += 110
+        view.center.y += 150
         self.homeBtn.alpha = 1
     }
- 
-//    func animate() {
-//        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
-//            self.up(view: self.homeBtn)
-//            })    { (_) in
-//                self.down(view: self.homeBtn)
-//            }
-//    }
     
     
     var homeButtonOn: Bool = true
@@ -79,17 +72,32 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
 
         if homeButtonOn {
             self.hideHomeButton()
+            if pageNumber == 0 && testData == "paul" {
+                button.isEnabled = false
+            }
         } else {
             self.showHomeButton()
+            if pageNumber == 0 && testData == "paul" {
+                addHomeButton()
+            }
         }
         homeButtonOn = !homeButtonOn
     }
 
-    
+    func addHomeBtnOnPaulFirstPage() {
+        if pageNumber == 0 && testData == "paul" {
+            addHomeButton()
+        }
+    }
     
     @IBAction func previousPage(_ sender: Any) {
+        self.pressedBtn()
+        self.audioPlayer2?.pause()
+        animationView.removeFromSuperview()
+        replayButton.removeFromSuperview()
         pageNumber -= 1;
         self.sendData()
+        startStory()
     }
     
     
@@ -107,10 +115,15 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
     
     
     @IBAction func nextPage(_ sender: Any) {
+        pressedBtn()
         putStoryPageNum()
         pageNumber += 1;
         self.audioPlayer2?.pause()
-        
+        animationView.removeFromSuperview()
+        replayButton.removeFromSuperview()
+        if pageNumber == 1 && testData == "paul" {
+            button.removeFromSuperview()
+        }
         if pageNumber == storyPageNum {
             self.audioPlayer?.pause()
             
@@ -122,6 +135,7 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
         }
         else {
             self.sendData()
+            startStory()
         }
     }
     
@@ -167,15 +181,6 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
             paulAnimation(pageNum: pageNumber)
             storySoundName = StoryData.shared.paulStorySound[pageNumber]
         }
-        self.storySoundPlayer()
-        self.audioPlayer2?.play()
-    }
-    
-    
-    func setIntroPopUp() {
-        let popUpView = IntroPopUp.instanceFromNib()
-        popUpView.frame = self.view.frame
-        self.view.addSubview(popUpView)
     }
     
     func intro() {
@@ -183,17 +188,26 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
         
         guard let vc =
             storyboard?.instantiateViewController(withIdentifier: "IntroView") as? IntroViewController else { return }
-        vc.labelText = ViewData.shared.changeLabel(storyBoardId: storyboardId)
+
+        vc.storyIntroDelegate = self
+        vc.soundName = PopUpData.shared.changeIntroSound(storyBoardId: storyboardId)
+        vc.speakingImageName = ViewData.shared.changeImage(storyBoardId: storyboardId)
+        vc.isStoryPage = true
         vc.view.backgroundColor = UIColor(white: 0, alpha: 0.75)
         vc.modalPresentationStyle = .overCurrentContext
         
         self.present(vc, animated: false, completion: nil)
     }
     
-    
     func startStory() {
-        self.storySoundPlayer()
+        self.storySoundPlayer(name: storySoundName)
         self.audioPlayer2?.play()
+    }
+    
+    func pressedBtn() {
+        effectSoundName = "1.app-button"
+        effectSoundPlayer()
+        self.audioPlayer3?.play()
     }
     
     func setTapGesture() {
@@ -202,33 +216,36 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
         self.view.addGestureRecognizer(doubleTap)
     }
     
-    
     // MARK: - override
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
+        
+        self.receiveData()
+        self.sendData()
         intro()
 
-        receiveData()
-        sendData()
         setTapGesture()
-        
-        
-        self.initializePlayer()
-        self.audioPlayer?.play()
-        self.audioPlayer?.numberOfLoops = 1
-        self.audioPlayer?.volume = 0.2
-        
-        audioPlayer3?.prepareToPlay()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         self.audioPlayer2?.prepareToPlay()
+        self.audioPlayer3?.prepareToPlay()
+        
+        if pageNumber == 0 && testData == "paul" {
+            addHomeButton()
+        }
     }
-
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer,
+                                     successfully flag: Bool){
+        if flag == true {
+            animationView.play()
+        }
+    }
     
     // MARK: - Methods
     // MARK: - Custom Method
@@ -247,7 +264,7 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    func storySoundPlayer() {
+    func storySoundPlayer(name: String) {
         guard let soundAsset: NSDataAsset = NSDataAsset(name: storySoundName) else {
             print("음원 파일 에셋을 가져올 수 없습니다")
             return
@@ -277,20 +294,6 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    /*
-    @IBAction func touchUpPlayPauseButton(_ sender: UIButton) {
-        
-        sender.isSelected = !sender.isSelected
-        
-        if sender.isSelected {
-            self.player?.play()
-        } else {
-            self.player?.pause()
-        }
-        
-    }
-    */
-    
     // MARK: AVAudioPlayerDelegate
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         guard let error: Error = error else {
@@ -311,24 +314,22 @@ class StoryViewController: UIViewController, AVAudioPlayerDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-//    func audioPlayerDidFinishPlaying(_ Player: AVAudioPlayer, successgully flag: Bool) {
-//        self.playPauseButton.isSelected = false
- //   }
-    
-    @objc func buttonAction(sender: UIButton!) {
-        self.effectSoundPlayer()
-        self.audioPlayer?.play()
-        animationView.play()
-//        playEffectSound(SoundName: effectSoundName)
+}
 
+extension StoryViewController: StoryIntroDelegate {
+
+    func playBackgroundSound() {
+        self.startStory()
+        self.initializePlayer()
+        self.audioPlayer?.play()
+        self.audioPlayer?.numberOfLoops = -1
+        self.audioPlayer?.volume = SettingData.shared.bgmSoundVolume
     }
     
-    @objc func nextButtonAction(sender: UIButton!) {
-        nextPage(UIButton())
+    func passedStory() {
+        self.dismiss(animated: false, completion: nil)
+        if let view = self.storyboard?.instantiateViewController(withIdentifier: "LevelView") {
+            self.navigationController?.pushViewController(view, animated: false)
+        }
     }
-    
-    @objc func previousButtonAction(sender: UIButton!) {
-        previousPage(UIButton())
-    }
-    
 }

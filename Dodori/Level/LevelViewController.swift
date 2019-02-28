@@ -10,59 +10,49 @@ import UIKit
 import AVFoundation
 
 class LevelViewController: UIViewController {
-
-    let Data0 = LevelData()
+    
     var testData = ViewData.shared.selectedStory
     var soundName: String = ""
+    var backgroundImageName: String = ""
+    var titleName: String = ""
+    var easyScoreImageName: String = ""
+    var hardScoreImageName: String = ""
     
 //    let stepData = ViewData.shared.selectedStory
     let isReview = ViewData.shared.selectedReview
     
     @IBOutlet weak var backgroundImage: UIImageView!
-    @IBOutlet weak var storyTitle: UIImageView!
-    
+    @IBOutlet weak var easyStarScoreImageView: UIImageView?
+    @IBOutlet weak var hardStarScoreImageView: UIImageView?
+    @IBOutlet weak var storyTitleImageView: UIImageView?
     
     // 메인화면으로 이동
     @IBAction func goHome(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: false)
         ViewData.shared.selectedReview = nil
     }
-    
-    
-//    func receiveData() {
-//        let stepData = ViewData.shared.selectedStory
-//
-//        switch stepData {
-//            case "tino" :
-//                testData = "tino"
-//            case "yagu" :
-//                testData = "yagu"
-//            default :
-//                testData = "paul"
-//        }
-//    }
-    
+
 
     func sendData() {
         if testData == "tino" {
-            let background: String = Data0.backgroundImage[0]
-            backgroundImage.image = UIImage(named: background)
-            let title: String = Data0.storyTitle[0]
-            storyTitle.image = UIImage(named: title)
+            backgroundImageName = LevelData.shared.backgroundImage[0]
+            backgroundImage.image = UIImage(named: backgroundImageName)
+            titleName = LevelData.shared.storyTitle[0]
+            storyTitleImageView?.image = UIImage(named: titleName)
         }
 
         else if testData == "yagu" {
-            let background: String = Data0.backgroundImage[1]
-            backgroundImage.image = UIImage(named: background)
-            let title: String = Data0.storyTitle[1]
-            storyTitle.image = UIImage(named: title)
+            backgroundImageName = LevelData.shared.backgroundImage[1]
+            backgroundImage.image = UIImage(named: backgroundImageName)
+            titleName = LevelData.shared.storyTitle[1]
+            storyTitleImageView?.image = UIImage(named: titleName)
         }
 
         else if testData == "paul" {
-            let background: String = Data0.backgroundImage[2]
-            backgroundImage.image = UIImage(named: background)
-            let title: String = Data0.storyTitle[2]
-            storyTitle.image = UIImage(named: title)
+            backgroundImageName = LevelData.shared.backgroundImage[2]
+            backgroundImage.image = UIImage(named: backgroundImageName)
+            titleName = LevelData.shared.storyTitle[2]
+            storyTitleImageView?.image = UIImage(named: titleName)
         }
     }
     
@@ -91,6 +81,24 @@ class LevelViewController: UIViewController {
         }
     }
     
+    func setScoreImage() {
+        if testData == "yagu" {
+            easyScoreImageName = "levelStar\(ResultData.shared.yaguEasyScore)"
+            hardScoreImageName = "levelStar\(ResultData.shared.yaguHardScore)"
+        } else if testData == "tino" {
+            easyScoreImageName = "levelStar\(ResultData.shared.tinoEasyScore)"
+            hardScoreImageName = "levelStar\(ResultData.shared.tinoHardScore)"
+        } else if testData == "paul" {
+            easyScoreImageName = "levelStar\(ResultData.shared.paulEasyScore)"
+            hardScoreImageName = "levelStar\(ResultData.shared.paulHardScore)"
+        } else {
+            easyScoreImageName = "levelStar0"
+            hardScoreImageName = "levelStar0"
+        }
+        easyStarScoreImageView?.image = UIImage(named: easyScoreImageName)
+        hardStarScoreImageView?.image = UIImage(named: hardScoreImageName)
+    }
+    
     
     func changeView() {
         if let view = self.storyboard?.instantiateViewController(withIdentifier: "Test1View") {
@@ -114,6 +122,10 @@ class LevelViewController: UIViewController {
         sendData()
         audioPlayer?.prepareToPlay()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setScoreImage()
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,15 +154,4 @@ class LevelViewController: UIViewController {
         initializePlayer(soundName: soundName)
         self.audioPlayer?.play()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

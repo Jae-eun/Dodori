@@ -9,11 +9,10 @@
 import Foundation
 import UIKit
 
-let levelData: LevelData = LevelData()
-
 class LevelData: NSObject {
+    static let shared: LevelData = LevelData()
     
     let backgroundImage = ["tino_level_background", "yagu_level_background", "paul_level_background"]
     
-    let storyTitle = ["tino_level_title", "yagu_level_title", "paul_level_title"]
+    let storyTitle = ["levelTinoTitle", "level_yagu_title", "level_paul_title"]
 }
