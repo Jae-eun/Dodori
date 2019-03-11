@@ -10,10 +10,21 @@
 
 개발 : 이재은
 
-![이미지이름](./이미지가 있는 폴더/이미지이름.형식)
 
 ![main](./image/main.png)
 
-![메인](./image/메인.png)
+![story](./image/story.png)
+
+![level](./image/level.png)
+
+![word](./image/word.png)
+
+![sentence](./image/sentence.png)
+
+![quiz](./image/quiz.png)
+
+![result](./image/result.png)
+
+![review](./image/review.png)
 
 
