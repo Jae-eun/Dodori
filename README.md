@@ -12,6 +12,8 @@
 
 ![이미지이름](./이미지가 있는 폴더/이미지이름.형식)
 
-![메인](.image/main.png)
+![main](./image/main.png)
+
+![메인](./image/메인.png)
 
 
