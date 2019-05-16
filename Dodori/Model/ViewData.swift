@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ViewData {
+final class ViewData {
     static let shared: ViewData = ViewData()
     
     let pageNum = ["training_stage4_circle1", "training_stage4_circle2", "training_stage4_circle3"]

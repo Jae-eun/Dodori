@@ -29,7 +29,7 @@ import Lottie
 import UIKit
 
 
-class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
+final class Test2ViewController: UIViewController, AVAudioPlayerDelegate {
     // MARK:- Properties
     var audioPlayer: AVAudioPlayer?
     var audioPlayer2: AVAudioPlayer?

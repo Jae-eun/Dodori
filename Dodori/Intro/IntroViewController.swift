@@ -19,7 +19,7 @@ protocol TestIntroDelegate: class {
     func bubbleDefaultLottie()
 }
 
-class IntroViewController: UIViewController, AVAudioPlayerDelegate {
+final class IntroViewController: UIViewController, AVAudioPlayerDelegate {
     
     weak var storyIntroDelegate: StoryIntroDelegate?
     weak var testIntroDelegate: TestIntroDelegate?
@@ -37,26 +37,28 @@ class IntroViewController: UIViewController, AVAudioPlayerDelegate {
     var audioPlayer: AVAudioPlayer?
     var audioPlayer2: AVAudioPlayer?
     public var animationView = LOTAnimationView()
-    
+  
+  /// 시작 버튼 (Btn 없애자)
     @IBAction func startBtn(_ sender: Any) {
         self.pressedBtn()
         testIntroDelegate?.bubbleDefaultLottie()
         self.dismiss(animated: false, completion: nil)
     }
-    
+  
+  /// 동화 시작하기
     @IBAction func startStoryButton() {
         self.pressedBtn()
         storyIntroDelegate?.playBackgroundSound()
         self.dismiss(animated: false, completion: nil)
     }
     
-    
+    /// 동화 넘어가기
     @IBAction func passedStoryBtn(_ sender: Any) {
         self.pressedBtn()
         storyIntroDelegate?.passedStory()
     }
 
-    
+    /// 도돌이 로티 애니메이션 (오토레이아웃 생각하기..)
     func dodoriLottie() {
         animationView = LOTAnimationView(name: "dodori_anim_test6")
         animationView.frame = CGRect(x: 166, y: 200, width: 334, height: 506)
@@ -65,7 +67,9 @@ class IntroViewController: UIViewController, AVAudioPlayerDelegate {
         animationView.loopAnimation = true
        
     }
-    
+  
+  // MARK: - Life Cycle
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,9 +80,9 @@ class IntroViewController: UIViewController, AVAudioPlayerDelegate {
         audioPlayer?.play()
         
         showStoryButton()
-        // Do any additional setup after loading the view.
     }
 
+  /// 버튼 보이게
     func showStoryButton() {
         if isStoryPage == true {
             storyStartButton.isHidden = false
@@ -90,7 +94,8 @@ class IntroViewController: UIViewController, AVAudioPlayerDelegate {
             startButton.isHidden = false
         }
     }
-    
+  
+  /// 기본 재생
     func initializePlayer() {
         guard let soundAsset: NSDataAsset = NSDataAsset(name: soundName) else {
             print("음원 파일 에셋을 가져올 수 없습니다")
@@ -104,7 +109,8 @@ class IntroViewController: UIViewController, AVAudioPlayerDelegate {
             print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
         }
     }
-    
+  
+  /// 효과음 재생
     func effectSoundPlayer() {
         guard let soundAsset: NSDataAsset = NSDataAsset(name: effectSoundName) else {
             print("음원 파일 에셋을 가져올 수 없습니다")
@@ -118,13 +124,15 @@ class IntroViewController: UIViewController, AVAudioPlayerDelegate {
             print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
         }
     }
-    
+  
+  /// 소리 재생 끝났을 때, 애니메이션도 멈추기
     func audioPlayerDidFinishPlaying(_ Player: AVAudioPlayer, successfully flag: Bool) {
         if flag == true {
             animationView.loopAnimation = false
         }
     }
-    
+  
+  /// 버튼 눌렀을 때 소리 재생
     func pressedBtn() {
         soundName = "1.app-button"
         effectSoundPlayer()

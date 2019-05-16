@@ -10,7 +10,8 @@ import UIKit
 import Lottie
 import AVFoundation
 
-class ResultViewController: UIViewController, AVAudioPlayerDelegate {
+// 결과 화면
+final class ResultViewController: UIViewController, AVAudioPlayerDelegate {
 
     var testData: String = ""
     var soundName: String = ""

@@ -24,7 +24,8 @@ import AVFoundation
 import Lottie
 import CoreData
 
-class SentencePracticeViewController: UIViewController, AVAudioPlayerDelegate {
+/// 문장 복습 화면 
+final class SentencePracticeViewController: UIViewController, AVAudioPlayerDelegate {
 
     // MARK: IBOutlets
     @IBOutlet var playPauseButton: UIButton!

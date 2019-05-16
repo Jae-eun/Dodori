@@ -11,7 +11,8 @@ import AVFoundation
 
 private let reuseIdentifier = "Cell"
 
-class ReviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AVAudioPlayerDelegate {
+// 복습 첫 화면
+final class ReviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, AVAudioPlayerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var storyTitleImageView: UIImageView!

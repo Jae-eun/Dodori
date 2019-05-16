@@ -36,7 +36,7 @@ protocol testDelegate {
     func nextPage()
 }
 
-class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
+final class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
 
     // MARK:- Properties
     var audioPlayer: AVAudioPlayer?
@@ -80,7 +80,7 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
         self.navigationController?.popToRootViewController(animated: false)
     }
 
-    
+    /// 어떤 동화, 난이도인지 확인
     func receiveData() {
         if ViewData.shared.selectedStory == "tino" {
             if ViewData.shared.selectedLevel == "easy" {
@@ -108,7 +108,7 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    
+    /// 테스트 디폴트 설정
     func testDataDefault() {
         heart.isHidden = false
         heart2.isHidden = false
@@ -126,7 +126,7 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
         isSolve = false
     }
     
-    
+    /// 테스트 데이터 보내기. Practice로 바꿀까
     func sendData() {
        let pageNumImg: String = Test1Data.shared.pageNum[pageNumber]
         pageNum.image = UIImage(named: pageNumImg)
@@ -168,12 +168,8 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
             step1Pronun.text = Test1Data.shared.paulHardPronunArray[pageNumber]
         }
     }
-    
-//    func defaultReviewData() {
-//        Test1Data.shared.reviewPageNum = []
-//    }
 
-    
+    /// 하트 터지는 로티 설정. 오토레이아웃 생각해서 다시
     public func heartAnimation () {
         let animationView = LOTAnimationView(name: "heart_anim")
         self.removeHeart()
@@ -268,8 +264,9 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
 //            print(error)
 //        }
     }
-   
-    func correctPronunciation() {
+  
+  /// 결과에 따른 소리 재생
+    func playSoundByCorrection() {
         if isCorrect == true {
             self.correctLottie()
         } else {
@@ -278,7 +275,7 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     // MARK: - Methods
-    // MARK: - Custom Method
+    /// 기본 플레이어
     func initializePlayer() {
         guard let soundAsset: NSDataAsset = NSDataAsset(name: soundName) else {
             print("음원 파일 에셋을 가져올 수 없습니다")
@@ -292,7 +289,8 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
             print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
         }
     }
-    
+  
+  /// 효과음 플레이어
     func effectSoundPlayer() {
         guard let soundAsset: NSDataAsset = NSDataAsset(name: effectSoundName) else {
             print("음원 파일 에셋을 가져올 수 없습니다")
@@ -306,7 +304,8 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
             print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
         }
     }
-    
+  
+  /// 말풍선 소리 플레이어
     func bubbleSoundPlayer() {
         guard let soundAsset: NSDataAsset = NSDataAsset(name: bubbleSoundName) else {
             print("음원 파일 에셋을 가져올 수 없습니다")
@@ -320,30 +319,28 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
             print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
         }
     }
-    
+  
+  /// 발음 소리 재생
     func pressedPronunciation() {
         soundName = "\(step1FileName)_sound"
         initializePlayer()
     }
-    
+  
+  /// 버튼 눌렀을 때 소리 재생
     func pressedBtn() {
         effectSoundName = "1.app-button"
         effectSoundPlayer()
         self.audioPlayer2?.play()
     }
-    
+  
+  /// 마이크 버튼 눌렀을 때 소리 재생
     func pressedRecordBtn() {
         effectSoundName = "5.app-record_start"
         effectSoundPlayer()
         self.audioPlayer2?.play()
     }
-    
-//    func finishedRecordBtn() {
-//        soundName = "6.app-record_end"
-//        initializePlayer(soundName: soundName)
-//        self.audioPlayer?.play()
-//    }
-    
+  
+  /// 말풍선 소리 재생
     func playBubbleSound() {
         if Test1Data.shared.opportunity == 3 {
             bubbleSoundName = "dodori_word"
@@ -355,7 +352,8 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
         bubbleSoundPlayer()
         self.audioPlayer3?.play()
     }
-    
+  
+  /// 틀렸을 때, 하트 터지는 소리 재생
     func removeHeart() {
         soundName = "7.app-heart"
         initializePlayer()
@@ -473,7 +471,7 @@ class Test1ViewController: UIViewController, AVAudioPlayerDelegate {
                              alpha: 1)
 }
 
-
+// 분리분리
 /*
  * NSKRecognizerDelegate protocol 구현부
  */
@@ -575,7 +573,7 @@ extension Test1ViewController: NSKRecognizerDelegate {
         }
     }
 
-    
+    /// 틀렸을 때 팝업
     func incorrectPopUp() {
         guard let storyboardId = self.restorationIdentifier else { return }
         
@@ -590,12 +588,14 @@ extension Test1ViewController: NSKRecognizerDelegate {
         
         self.present(vc, animated: false, completion: nil)
     }
-    
+  
+  /// 맞았을 때 소리 재생
     func playCorrectLottieSound() {
         effectSoundPlayer()
         self.audioPlayer2?.play()
     }
-    
+  
+  /// 맞았을 때 로티
     func correctLottie() {
         let randomNo: UInt32 = arc4random_uniform(5) + 1;
         let correctIconImageName = "correct_icon\(randomNo)"
@@ -606,7 +606,8 @@ extension Test1ViewController: NSKRecognizerDelegate {
         self.playCorrectLottieSound()
         animationView.play(completion: {(true) in self.nextPage()})
     }
-    
+  
+  /// 첫번째 말풍선 로티
     func bubbleLottie() {
         playBubbleSound()
         dodoriSpeakingImageView.isHidden = true
@@ -615,7 +616,8 @@ extension Test1ViewController: NSKRecognizerDelegate {
         self.view.addSubview(animationView1)
         animationView1.play()
     }
-    
+  
+  /// 두번째 말풍선 로티
     func bubbleLottie2() {
         playBubbleSound()
         dodoriSpeakingImageView.isHidden = true
@@ -631,7 +633,8 @@ extension Test1ViewController: IncorrectPopUpDelegate {
     func playAuto() {
         
     }
-    
+  
+  /// 다음 테스트 화면 이동
     @IBAction public func nextPage() {
         if isSolve == true {
             ResultData.shared.totalOpportunityScore += 3
@@ -661,6 +664,7 @@ extension Test1ViewController: IncorrectPopUpDelegate {
 }
 
 extension Test1ViewController: TestIntroDelegate {
+  /// 말풍선 로티 (오토레이아웃 생각하기..)
     func bubbleDefaultLottie() {
         playBubbleSound()
         animationView = LOTAnimationView(name: "bubble_stage1")

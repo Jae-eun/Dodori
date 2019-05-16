@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Test2Data: NSObject {
+final class Test2Data: NSObject {
     static let shared: Test2Data = Test2Data()
     
     var opportunity : Int = 3

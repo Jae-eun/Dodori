@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PopUpData {
+final class PopUpData {
     static let shared: PopUpData = PopUpData()
     
     var introID: String?

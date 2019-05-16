@@ -10,7 +10,7 @@ import UIKit
 
 let storyData: StoryData = StoryData()
 
-class StoryData: NSObject {
+final class StoryData: NSObject {
     
     static let shared: StoryData = StoryData()
         

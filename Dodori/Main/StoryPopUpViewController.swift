@@ -8,7 +8,8 @@
 
 import UIKit
 
-class StoryPopUpViewController: UIViewController {
+// 동화 설명 팝업
+final class StoryPopUpViewController: UIViewController {
 
     @IBOutlet weak var storyPopUpImage: UIImageView!
 

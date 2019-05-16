@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ResultData: NSObject {
+final class ResultData: NSObject {
     static let shared: ResultData = ResultData()
     
     var totalOpportunityScore: Int = 1

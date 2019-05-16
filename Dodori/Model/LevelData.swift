@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class LevelData: NSObject {
+final class LevelData: NSObject {
     static let shared: LevelData = LevelData()
     
     let backgroundImage = ["tino_level_background", "yagu_level_background", "paul_level_background"]

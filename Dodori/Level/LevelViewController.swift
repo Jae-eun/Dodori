@@ -9,17 +9,18 @@
 import UIKit
 import AVFoundation
 
-class LevelViewController: UIViewController {
+/// 레벨 선택 화면
+final class LevelViewController: UIViewController {
     
-    var testData = ViewData.shared.selectedStory
-    var soundName: String = ""
-    var backgroundImageName: String = ""
-    var titleName: String = ""
-    var easyScoreImageName: String = ""
-    var hardScoreImageName: String = ""
+    private var testData = ViewData.shared.selectedStory
+    private var soundName: String = ""
+    private var backgroundImageName: String = ""
+    private var titleName: String = ""
+    private var easyScoreImageName: String = ""
+    private var hardScoreImageName: String = ""
     
 //    let stepData = ViewData.shared.selectedStory
-    let isReview = ViewData.shared.selectedReview
+    private let isReview = ViewData.shared.selectedReview
     
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var easyStarScoreImageView: UIImageView?
@@ -32,7 +33,7 @@ class LevelViewController: UIViewController {
         ViewData.shared.selectedReview = nil
     }
 
-
+/// 데이터 보내기
     func sendData() {
         if testData == "tino" {
             backgroundImageName = LevelData.shared.backgroundImage[0]
@@ -55,9 +56,8 @@ class LevelViewController: UIViewController {
             storyTitleImageView?.image = UIImage(named: titleName)
         }
     }
-    
-    
-    
+  
+    /// 쉬워요 선택
     @IBAction func EasyBtn(_ sender: Any) {
         ViewData.shared.selectedLevel = "easy"
         
@@ -70,7 +70,7 @@ class LevelViewController: UIViewController {
         }
     }
     
-    
+    /// 어려워요 선택
     @IBAction func HardBtn(_ sender: Any) {
         ViewData.shared.selectedLevel = "hard"
         pressedBtn()
@@ -80,7 +80,8 @@ class LevelViewController: UIViewController {
             changeView()
         }
     }
-    
+  
+  /// 점수 이미지 설정
     func setScoreImage() {
         if testData == "yagu" {
             easyScoreImageName = "levelStar\(ResultData.shared.yaguEasyScore)"
@@ -99,21 +100,21 @@ class LevelViewController: UIViewController {
         hardStarScoreImageView?.image = UIImage(named: hardScoreImageName)
     }
     
-    
+    /// 화면 전환
     func changeView() {
         if let view = self.storyboard?.instantiateViewController(withIdentifier: "Test1View") {
             self.navigationController?.pushViewController(view, animated:false)
         }
     }
     
-    
+    /// 화면 전환 (합치자ㅏㅏㅏ)
     func changeReviewView() {
         if let view = self.storyboard?.instantiateViewController(withIdentifier: "ReviewView") {
             self.navigationController?.pushViewController(view, animated:false)
         }
     }
-    
-    
+
+  // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +133,8 @@ class LevelViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
+  /// 어떻게 분리한담~
     
     var audioPlayer: AVAudioPlayer?
     
@@ -148,7 +151,8 @@ class LevelViewController: UIViewController {
             print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
         }
     }
-    
+  
+  /// 버튼 누를 때 소리 재생
     func pressedBtn() {
         soundName = "1.app-button"
         initializePlayer(soundName: soundName)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ReviewData: NSObject {
+final class ReviewData: NSObject {
     static let shared: ReviewData = ReviewData()
     
     var pageNumber: Int?

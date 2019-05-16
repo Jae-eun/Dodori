@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReviewCollectionViewCell: UICollectionViewCell {
+final class ReviewCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var reviewImage: UIImageView!
     @IBOutlet weak var reviewText: UILabel!

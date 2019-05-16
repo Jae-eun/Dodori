@@ -15,7 +15,7 @@ protocol IncorrectPopUpDelegate: class {
     func playAuto()
 }
 
-class IncorrectPopUpViewController: UIViewController, AVAudioPlayerDelegate {
+final class IncorrectPopUpViewController: UIViewController, AVAudioPlayerDelegate {
 
      weak var delegate: IncorrectPopUpDelegate?
     

@@ -9,7 +9,8 @@
 import UIKit
 import AVFoundation
 
-class SettingViewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate {
+// 설정 화면
+final class SettingViewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var bgmSwitchButton: UIButton!

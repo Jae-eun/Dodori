@@ -10,9 +10,8 @@ import UIKit
 import AVFoundation
 import Lottie
 
-class QuizViewController: UIViewController, AVAudioPlayerDelegate {
-
-
+// 퀴즈 화면
+final class QuizViewController: UIViewController, AVAudioPlayerDelegate {
     
     // MARK: IBOutlets
     @IBOutlet var replayButton: UIButton!
@@ -60,7 +59,7 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
     var quizDictionary:[String:String] = [:]
     var shuffledExamples:[Example] = []
 
-
+/// 퀴즈 인트로 화면
     func intro() {
         guard let storyboardId = self.restorationIdentifier else { return }
         
@@ -92,12 +91,14 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
     override func viewDidAppear(_ animated: Bool) {
 
     }
-    
+  
+  /// 메인 화면으로 이동
     @IBAction func goHome(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: false)
         ViewData.shared.selectedReview = nil
     }
-    
+  
+  /// 어떤 동화, 난이도인지 알려줌
     func receiveData() {
         if ViewData.shared.selectedStory == "tino" {
             if ViewData.shared.selectedLevel == "easy" {
@@ -124,7 +125,8 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
             }
         }
     }
-    
+  
+  /// 퀴즈 디폴트 상태 설정
     func defaultData() {
         playFileNumber = 0
         opportunity = 1
@@ -134,13 +136,14 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
         nextButton.isHidden = true
         enabledExampleButton()
     }
-    
+  
     func enabledExampleButton() {
         firstBtn.isEnabled = true
         secondBtn.isEnabled = true
         thirdBtn.isEnabled = true
     }
-    
+  
+  /// 어떤 데이터인지
     func sendData() {
 
         let pageNumImg: String = ViewData.shared.pageNum[pageNumber]
@@ -196,7 +199,8 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
             }
         }
     }
-    
+  
+  /// 퀴즈 데이터 설정
     func setQuizData() {
         sendData()
         shuffledExamples.removeAll()
@@ -224,9 +228,9 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
         }
 
     }
-    
+  
+  /// 정답인지 확인
     func confirmAnswer() {
-    
         if userSelectedIndex == correctAnswerIndex {
             print("정답")
             isCorrect = true
@@ -238,13 +242,15 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
             incorrectPopUp()
         }
     }
-    
+  
+  /// 도돌이 말풍선 소리 재생
     func playBubbleSound() {
         effectSoundName = "dodori_quiz"
         effectSoundPlayer()
         self.audioPlayer2?.play()
     }
-   
+  
+  /// 맞았을 때 로티
     func correctLottie() {
         let randomNo: UInt32 = arc4random_uniform(5) + 1;
         let correctIconImageName = "correct_icon\(randomNo)"
@@ -267,7 +273,7 @@ class QuizViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
 
-
+/// 틀렸을 때 팝업
     func incorrectPopUp() {
         guard let storyboardId = self.restorationIdentifier else { return }
         
